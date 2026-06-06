@@ -1,18 +1,25 @@
 import os
 import requests
+from datetime import datetime
 from dotenv import load_dotenv
 from openai import OpenAI
+from signal_logger import save_signal
 
-# Load environment variables
+# =========================
+# LOAD ENV VARIABLES
+# =========================
+
 load_dotenv()
 
-# Create Qwen client
 client = OpenAI(
     api_key=os.getenv("QWEN_API_KEY"),
     base_url="https://hackathon.bitgetops.com/v1"
 )
 
-# Get crypto price from CoinGecko
+# =========================
+# MARKET DATA
+# =========================
+
 def get_price(coin_id):
     url = f"https://api.coingecko.com/api/v3/simple/price?ids={coin_id}&vs_currencies=usd"
 
@@ -25,6 +32,9 @@ def get_price(coin_id):
 
     return data[coin_id]["usd"]
 
+# =========================
+# ALPHALENS AI
+# =========================
 
 print("\n====================")
 print("     AlphaLens AI")
@@ -43,7 +53,7 @@ print("\nFetching market data...\n")
 price = get_price(coin)
 
 if price is None:
-    print("Coin not found.")
+    print("Coin not found. Please use a valid CoinGecko coin id.")
     exit()
 
 print(f"Current price: ${price}")
@@ -82,8 +92,24 @@ response = client.chat.completions.create(
     ]
 )
 
+report = response.choices[0].message.content
+
 print("\n====================")
 print("  AlphaLens Report")
 print("====================\n")
 
-print(response.choices[0].message.content)
+print(report)
+filename = f"reports/report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
+
+with open(filename, "w", encoding="utf-8") as file:
+    file.write(report)
+
+print(f"\nReport saved to {filename}")
+
+save_signal(
+    coin=coin,
+    signal="HOLD",
+    confidence="64"
+)
+
+print("\nSignal saved successfully!")
