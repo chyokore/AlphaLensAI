@@ -3,12 +3,20 @@ import requests
 from dotenv import load_dotenv
 from openai import OpenAI
 
+# =========================
+# LOAD ENV VARIABLES
+# =========================
+
 load_dotenv()
 
 client = OpenAI(
     api_key=os.getenv("QWEN_API_KEY"),
     base_url="https://hackathon.bitgetops.com/v1"
 )
+
+# =========================
+# MARKET DATA
+# =========================
 
 def get_price(coin_id):
     url = f"https://api.coingecko.com/api/v3/simple/price?ids={coin_id}&vs_currencies=usd"
@@ -22,6 +30,10 @@ def get_price(coin_id):
 
     return data[coin_id]["usd"]
 
+
+# =========================
+# PORTFOLIO MODE
+# =========================
 
 print("\n====================")
 print(" Portfolio Mode")
@@ -44,6 +56,8 @@ for coin in coin_list:
     if price:
         print(f"{coin.upper()}: ${price}")
         portfolio_data.append(f"{coin}: ${price}")
+    else:
+        print(f"{coin.upper()}: Coin not found")
 
 prompt = f"""
 Analyze this crypto portfolio:
@@ -57,8 +71,10 @@ Provide:
 3. Highest Risk Asset
 4. Overall Outlook
 5. Short Narrative Analysis
+6. Suggested Portfolio Improvement
+7. Risk Management Recommendation
 
-Keep response concise.
+Keep response concise and practical.
 """
 
 print("\nGenerating AI Portfolio Analysis...\n")
