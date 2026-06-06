@@ -22,7 +22,6 @@ def get_price(coin_id):
     url = f"https://api.coingecko.com/api/v3/simple/price?ids={coin_id}&vs_currencies=usd"
 
     response = requests.get(url)
-
     data = response.json()
 
     if coin_id not in data:
@@ -36,7 +35,7 @@ def get_price(coin_id):
 # =========================
 
 print("\n====================")
-print(" Portfolio Mode")
+print(" AlphaLens Portfolio Mode")
 print("====================\n")
 
 coins = input(
@@ -64,17 +63,35 @@ Analyze this crypto portfolio:
 
 {portfolio_data}
 
+Act as a professional crypto portfolio manager.
+
 Provide:
 
 1. Portfolio Health Score (0-100)
-2. Strongest Asset
-3. Highest Risk Asset
-4. Overall Outlook
-5. Short Narrative Analysis
-6. Suggested Portfolio Improvement
-7. Risk Management Recommendation
 
-Keep response concise and practical.
+2. Overall Portfolio Sentiment
+   (Bullish, Neutral, Bearish)
+
+3. Strongest Asset
+   (Explain why)
+
+4. Highest Risk Asset
+   (Explain why)
+
+5. Portfolio Diversification Score
+   (0-100)
+
+6. AI Market Narrative
+   (Summarize the current market environment)
+
+7. Suggested Portfolio Actions
+   (Buy, Hold, Reduce, Rebalance)
+
+8. Risk Management Recommendations
+
+9. Confidence Score (0-100)
+
+Keep the response concise, professional, and easy to understand.
 """
 
 print("\nGenerating AI Portfolio Analysis...\n")
@@ -90,7 +107,18 @@ response = client.chat.completions.create(
 )
 
 print("====================")
-print(" Portfolio Analysis")
+print(" AlphaLens Portfolio Analysis")
 print("====================\n")
 
-print(response.choices[0].message.content)
+report = response.choices[0].message.content
+
+print("====================")
+print(" AlphaLens Portfolio Analysis")
+print("====================\n")
+
+print(report)
+
+with open("portfolio_report.txt", "w", encoding="utf-8") as f:
+    f.write(report)
+
+print("\nPortfolio report saved to portfolio_report.txt")
