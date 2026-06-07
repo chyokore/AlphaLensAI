@@ -1,0 +1,13 @@
+AlphaLens Paper Trading Report
+Trades Analyzed: 2
+Open Trades: 2
+Winning Trades: 2
+Losing Trades: 0
+Win Rate: 100.00%
+Average PnL: 1.63%
+Total Portfolio PnL: 3.25%
+Best Trade: ETH (1.93%)
+Worst Trade: BTC (1.33%)
+Risk Rating: LOW
+Health Score: 70.49/100
+Portfolio Status: GOOD ✅
