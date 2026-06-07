@@ -2,108 +2,145 @@
 
 AlphaLens AI is a multilingual crypto intelligence platform built for the Bitget × Qwen Hackathon.
 
-The platform combines real-time market data, AI-powered analysis, portfolio intelligence, paper trading analytics, and market narratives to help traders make more informed decisions.
+The platform combines real-time market data, AI-powered analysis, portfolio intelligence, market narratives, and paper trading analytics to help traders make informed decisions while managing risk.
 
-## Overview
+---
 
-AlphaLens AI acts as an AI-powered crypto copilot that helps users:
+## Problem
 
-* Analyze crypto assets
-* Generate AI trading signals
-* Evaluate portfolio risk
-* Monitor market conditions
-* Track paper trading performance
-* Generate institutional-style market reports
+Crypto traders often rely on multiple tools for:
+
+- Market analysis
+- Portfolio monitoring
+- Trading signals
+- Risk management
+- Market news and narratives
+
+This fragmented workflow makes decision-making slower and less efficient.
+
+AlphaLens AI unifies these capabilities into a single AI-powered intelligence platform.
+
+---
+
+## Solution
+
+AlphaLens AI provides:
+
+- AI-generated trading signals
+- Confidence-scored market analysis
+- Portfolio intelligence
+- Daily market briefings
+- Paper trading analytics
+- Risk monitoring
+
+Using Qwen AI and Bitget market data, AlphaLens transforms raw market information into actionable insights.
+
+---
 
 ## Features
 
 ### AI Trading Signals
 
-* Real-time crypto market analysis
-* BUY / HOLD / REDUCE recommendations
-* AI-generated confidence scores
-* Risk assessment
-* Multi-language support
+- Real-time crypto market analysis
+- BUY / HOLD / REDUCE recommendations
+- AI confidence scores
+- Risk assessment
+- Multi-language support
 
 ### Portfolio Intelligence
 
-* Portfolio Health Score
-* Portfolio Risk Score
-* Diversification Analysis
-* AI Portfolio Recommendations
-* Opportunity Watchlists
-* Executive Portfolio Summaries
+- Portfolio Health Score
+- Portfolio Risk Score
+- Diversification Analysis
+- Recommended Allocations
+- Opportunity Watchlists
+- Executive Portfolio Summaries
 
 ### Daily Market Briefs
 
-* Market Mood Analysis
-* Market Narratives
-* Key Risk Monitoring
-* Executive Summaries
-* Actionable Trading Insights
+- Market Mood Analysis
+- Market Narratives
+- Risk Monitoring
+- Executive Summaries
+- Actionable Trading Insights
 
-### Paper Trading Engine
+### Paper Trading Analytics
 
-* Trade Tracking
-* Win Rate Analysis
-* Portfolio PnL Monitoring
-* Portfolio Health Scoring
-* Risk Ratings
-* Trade Recommendations
+- Trade Tracking
+- Win Rate Analysis
+- Portfolio PnL Monitoring
+- Risk Ratings
+- Portfolio Health Scoring
+- Trade Recommendations
 
 ### Market Intelligence
 
-* Bitget Market Data Integration
-* Trending Asset Monitoring
-* Fear & Greed Index Tracking
-* Global Market Overview
+- Bitget Market Data Integration
+- Fear & Greed Index Monitoring
+- Trending Asset Tracking
+- Global Market Overview
+
+---
 
 ## Architecture
 
-AlphaLens AI combines multiple systems:
+### Perception Layer
 
-* Bitget API for real-time market data
-* Qwen AI for analysis and signal generation
-* MuleRun for workflow orchestration
-* CoinGecko API for market intelligence data
-* Python analytics engine for portfolio and trading intelligence
+- Bitget Market Data
+- CoinGecko Market Intelligence
+- Fear & Greed Index
 
-### Workflow
+### Decision Layer
 
-Bitget Market Data
+- Qwen AI Analysis
+- Signal Generation
+- Risk Scoring
+- Portfolio Evaluation
 
-↓
+### Execution Layer
 
-AlphaLens Analytics Engine
+- Signal Logging
+- Paper Trading Engine
+- Portfolio Tracking
 
-↓
+### Risk Management Layer
 
+- Confidence Scoring
+- Portfolio Health Scores
+- Risk Ratings
+- Diversification Analysis
+
+---
+
+## Workflow
+
+```text
+Market Data
+     ↓
+AlphaLens Engine
+     ↓
 Qwen AI Analysis
-
-↓
-
-Signal Generation
-
-↓
-
+     ↓
+Trading Signals
+     ↓
 Portfolio Intelligence
-
-↓
-
+     ↓
 Paper Trading Analytics
-
-↓
-
+     ↓
 Report Generation
+```
+
+---
 
 ## Tech Stack
 
-* Python
-* Qwen AI
-* Bitget Market Data API
-* CoinGecko API
-* MuleRun
-* GitHub
+- Python
+- Qwen AI
+- Bitget Market Data API
+- CoinGecko API
+- GitHub
+
+---
 
 ## Project Structure
 
@@ -129,6 +166,8 @@ reports/
 ├── report_*.txt
 └── paper_trading_report.txt
 ```
+
+---
 
 ## How To Run
 
@@ -162,62 +201,68 @@ python paper_trading.py
 python trade_journal.py
 ```
 
-## Example Capabilities
+---
 
-* Generate AI-powered crypto market reports
-* Analyze portfolio risk and diversification
-* Produce institutional-style market briefs
-* Track paper trading performance
-* Generate confidence-scored trading signals
-* Export reports for review and analysis
+## Verifiable Usage Evidence
 
-## Current Modules
+AlphaLens generates:
+
+- Signal history logs (`signals.csv`)
+- Paper trading records (`paper_trades.csv`)
+- Portfolio reports
+- Market brief reports
+- AI analysis reports
+
+These provide verifiable evidence of system usage and simulated trading activity.
+
+---
+
+## Current Capabilities
 
 ### AlphaLens AI Core
 
-Generates:
-
-* Market Sentiment
-* Trading Signals
-* Confidence Scores
-* Entry, Stop Loss, and Take Profit Levels
-* AI Market Narratives
+- Market Sentiment Analysis
+- Trading Signals
+- Confidence Scores
+- Entry, Stop Loss, and Take Profit Suggestions
+- AI Market Narratives
 
 ### Portfolio Intelligence
 
-Generates:
-
-* Health Scores
-* Risk Scores
-* Allocation Recommendations
-* Opportunity Watchlists
-* Portfolio Narratives
+- Health Scores
+- Risk Scores
+- Allocation Recommendations
+- Opportunity Watchlists
+- Executive Summaries
 
 ### Paper Trading Analytics
 
-Generates:
-
-* Win Rate
-* Portfolio PnL
-* Health Scores
-* Risk Ratings
-* Best and Worst Trade Analysis
-* Trade Recommendations
+- Win Rate Tracking
+- Portfolio PnL Analysis
+- Risk Ratings
+- Trade Performance Monitoring
 
 ### Market Brief Engine
 
-Generates:
+- Daily Market Mood
+- Confidence Scores
+- Top Opportunities
+- Market Narratives
+- Executive Summaries
 
-* Daily Market Mood
-* Confidence Scores
-* Top Opportunities
-* Market Narratives
-* Executive Summaries
+---
 
-## Vision
+## Future Roadmap
 
-AlphaLens AI aims to become a complete AI-powered crypto intelligence platform that combines market analytics, portfolio management, risk monitoring, and trading intelligence into a single experience powered by Qwen AI and Bitget market data.
+- GetClaw deployment
+- Live trading integration
+- Strategy automation
+- Advanced risk engine
+- Multi-asset support
+- Agent-to-agent collaboration
+
+---
 
 ## Built For
 
-Bitget × Qwen Hackathon 2026
+**Bitget × Qwen Hackathon 2026**
