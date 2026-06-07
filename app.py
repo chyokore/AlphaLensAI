@@ -1,9 +1,11 @@
 import os
-import requests
+import re
+import sys
 from datetime import datetime
 from dotenv import load_dotenv
 from openai import OpenAI
 from signal_logger import save_signal
+from bitget_data import get_bitget_price
 
 # =========================
 # LOAD ENV VARIABLES
@@ -17,99 +19,255 @@ client = OpenAI(
 )
 
 # =========================
+# SYMBOL MAP
+# =========================
+
+SYMBOL_MAP = {
+    "BTC": "BTCUSDT",
+    "ETH": "ETHUSDT",
+    "SOL": "SOLUSDT",
+    "XRP": "XRPUSDT",
+    "DOGE": "DOGEUSDT",
+    "ADA": "ADAUSDT",
+    "BNB": "BNBUSDT",
+    "AVAX": "AVAXUSDT",
+    "DOT": "DOTUSDT",
+    "LINK": "LINKUSDT",
+    "SUI": "SUIUSDT",
+    "APT": "APTUSDT",
+    "ARB": "ARBUSDT",
+    "OP": "OPUSDT",
+    "TRX": "TRXUSDT"
+}
+
+# =========================
+# HEADER
+# =========================
+
+print("\n====================================")
+print("        AlphaLens AI V9")
+print("====================================\n")
+
+symbol = input(
+    "Enter symbol (BTC, ETH, SOL, XRP, SUI, DOGE): "
+).upper()
+
+language = input(
+    "\nChoose language "
+    "(English, Chinese, Spanish, Portuguese, French): "
+)
+
+if symbol not in SYMBOL_MAP:
+    print("\n❌ Unsupported symbol.")
+    sys.exit()
+
+market_symbol = SYMBOL_MAP[symbol]
+
+# =========================
 # MARKET DATA
 # =========================
 
-def get_price(coin_id):
-    url = f"https://api.coingecko.com/api/v3/simple/price?ids={coin_id}&vs_currencies=usd"
+print("\nFetching Bitget market data...\n")
 
-    response = requests.get(url)
-
-    data = response.json()
-
-    if coin_id not in data:
-        return None
-
-    return data[coin_id]["usd"]
-
-# =========================
-# ALPHALENS AI
-# =========================
-
-print("\n====================")
-print("     AlphaLens AI")
-print("====================\n")
-
-coin = input(
-    "Enter CoinGecko coin id (bitcoin, ethereum, solana, sui, dogecoin, etc): "
-).lower()
-
-language = input(
-    "\nChoose language (English, Chinese, Spanish, Portuguese, French): "
-)
-
-print("\nFetching market data...\n")
-
-price = get_price(coin)
+price = get_bitget_price(market_symbol)
 
 if price is None:
-    print("Coin not found. Please use a valid CoinGecko coin id.")
-    exit()
+    print("\n❌ Unable to fetch Bitget price.")
+    sys.exit()
 
-print(f"Current price: ${price}")
+print(
+    f"{market_symbol} Price: "
+    f"${price:,.4f}"
+)
 
-print("\nAnalyzing market...\n")
+# =========================
+# AI ANALYSIS
+# =========================
+
+print("\nGenerating AlphaLens Analysis...\n")
 
 prompt = f"""
-Current {coin} price is ${price}.
+You are AlphaLens AI.
+
+Market Symbol:
+{market_symbol}
+
+Current Price:
+${price}
 
 Act as a professional crypto analyst.
 
 Provide:
 
 1. Market Sentiment
+
 2. Short-Term Outlook
+
 3. Risk Level
-4. Trading Signal (BUY, SELL, HOLD)
-5. Confidence Score (0-100)
+
+4. Trading Signal
+
+Format exactly as:
+
+Trading Signal: BUY
+
+or
+
+Trading Signal: HOLD
+
+or
+
+Trading Signal: REDUCE
+
+5. Confidence Score
+
+Format exactly as:
+
+Confidence Score: XX/100
+
 6. Suggested Entry Price
+
 7. Suggested Stop Loss
+
 8. Suggested Take Profit
-9. Key Risk Factors
+
+9. AI Market Narrative
+
+10. Key Risk Factors
 
 Respond entirely in {language}.
 
-Keep the response concise and structured.
+IMPORTANT:
+Always keep these two fields in English:
+
+Trading Signal: BUY/HOLD/REDUCE
+Confidence Score: XX/100
+
+Keep the report concise,
+professional,
+and easy to understand.
 """
 
-response = client.chat.completions.create(
-    model="qwen3.6-plus",
-    messages=[
-        {
-            "role": "user",
-            "content": prompt
-        }
-    ]
-)
+try:
+    response = client.chat.completions.create(
+        model="qwen3.6-plus",
+        messages=[
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ]
+    )
 
-report = response.choices[0].message.content
+    report = response.choices[0].message.content
 
-print("\n====================")
-print("  AlphaLens Report")
-print("====================\n")
+except Exception as e:
+    report = (
+        f"AI analysis unavailable.\n\n"
+        f"Error: {str(e)}"
+    )
+
+# =========================
+# DISPLAY REPORT
+# =========================
+
+print("\n====================================")
+print("      AlphaLens Report")
+print("====================================\n")
 
 print(report)
-filename = f"reports/report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
 
-with open(filename, "w", encoding="utf-8") as file:
-    file.write(report)
+# =========================
+# SAVE REPORT
+# =========================
 
-print(f"\nReport saved to {filename}")
-
-save_signal(
-    coin=coin,
-    signal="HOLD",
-    confidence="64"
+os.makedirs(
+    "reports",
+    exist_ok=True
 )
 
-print("\nSignal saved successfully!")
+filename = (
+    "reports/report_"
+    f"{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
+)
+
+with open(
+    filename,
+    "w",
+    encoding="utf-8"
+) as file:
+    file.write(report)
+
+print(
+    f"\n✅ Report saved to "
+    f"{filename}"
+)
+
+# =========================
+# SIGNAL EXTRACTION
+# =========================
+
+signal = "HOLD"
+confidence = "64"
+
+try:
+    report_upper = report.upper()
+
+    # SIGNAL
+
+    signal_patterns = [
+        r"TRADING SIGNAL\s*:\s*(BUY)",
+        r"TRADING SIGNAL\s*:\s*(HOLD)",
+        r"TRADING SIGNAL\s*:\s*(REDUCE)"
+    ]
+
+    for pattern in signal_patterns:
+        signal_match = re.search(
+            pattern,
+            report_upper
+        )
+
+        if signal_match:
+            signal = signal_match.group(1)
+            break
+
+    # CONFIDENCE
+
+    confidence_patterns = [
+        r"CONFIDENCE\s*SCORE.*?([0-9]{{1,3}})\s*/\s*100",
+        r"CONFIDENCE\s*SCORE.*?([0-9]{{1,3}})",
+        r"CONFIDENCE.*?([0-9]{{1,3}})"
+    ]
+
+    for pattern in confidence_patterns:
+        confidence_match = re.search(
+            pattern,
+            report_upper,
+            re.IGNORECASE | re.DOTALL
+        )
+
+        if confidence_match:
+            score = int(
+                confidence_match.group(1)
+            )
+
+            if 0 <= score <= 100:
+                confidence = str(score)
+                break
+
+except Exception:
+    pass
+
+# =========================
+# SAVE SIGNAL
+# =========================
+
+save_signal(
+    coin=symbol,
+    signal=signal,
+    confidence=confidence
+)
+
+print("\n✅ Signal saved successfully!")
+print(f"Signal: {signal}")
+print(f"Confidence: {confidence}")
