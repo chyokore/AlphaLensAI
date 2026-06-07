@@ -1,8 +1,8 @@
-
 import os
 import requests
 from dotenv import load_dotenv
 from openai import OpenAI
+from bitget_data import get_bitget_price
 
 # =========================
 # LOAD ENV VARIABLES
@@ -16,41 +16,47 @@ client = OpenAI(
 )
 
 # =========================
-# COINGECKO FUNCTIONS
+# SYMBOL MAP
+# =========================
+
+SYMBOL_MAP = {
+    "bitcoin": "BTCUSDT",
+    "ethereum": "ETHUSDT",
+    "solana": "SOLUSDT",
+    "sui": "SUIUSDT",
+    "xrp": "XRPUSDT",
+    "dogecoin": "DOGEUSDT",
+    "cardano": "ADAUSDT",
+    "binancecoin": "BNBUSDT",
+    "avalanche-2": "AVAXUSDT",
+    "polkadot": "DOTUSDT",
+    "chainlink": "LINKUSDT"
+}
+
+# =========================
+# BITGET PRICE FUNCTION
 # =========================
 
 def get_price(coin_id):
-    """
-    Fetch current USD price for a coin.
-    """
-    url = (
-        "https://api.coingecko.com/api/v3/simple/price"
-        f"?ids={coin_id}&vs_currencies=usd"
-    )
+    symbol = SYMBOL_MAP.get(coin_id.lower())
 
-    try:
-        response = requests.get(url, timeout=10)
-        response.raise_for_status()
-
-        data = response.json()
-
-        if coin_id not in data:
-            return None
-
-        return data[coin_id]["usd"]
-
-    except Exception:
+    if not symbol:
         return None
 
+    return get_bitget_price(symbol)
+
+# =========================
+# TRENDING COINS
+# =========================
 
 def get_trending_coins():
-    """
-    Fetch top trending coins.
-    """
     url = "https://api.coingecko.com/api/v3/search/trending"
 
     try:
-        response = requests.get(url, timeout=10)
+        response = requests.get(
+            url,
+            timeout=10
+        )
 
         if response.status_code != 200:
             return []
@@ -65,15 +71,18 @@ def get_trending_coins():
     except Exception:
         return []
 
+# =========================
+# GLOBAL MARKET DATA
+# =========================
 
 def get_global_market():
-    """
-    Fetch global crypto market data.
-    """
     url = "https://api.coingecko.com/api/v3/global"
 
     try:
-        response = requests.get(url, timeout=10)
+        response = requests.get(
+            url,
+            timeout=10
+        )
 
         if response.status_code != 200:
             return None
@@ -89,44 +98,45 @@ def get_global_market():
     except Exception:
         return None
 
+# =========================
+# FEAR & GREED
+# =========================
 
 def get_fear_greed():
-    """
-    Fetch Fear & Greed Index.
-    """
     url = "https://api.alternative.me/fng/"
 
     try:
-        response = requests.get(url, timeout=10)
+        response = requests.get(
+            url,
+            timeout=10
+        )
+
         data = response.json()
 
         value = data["data"][0]["value"]
-        classification = (
-            data["data"][0]["value_classification"]
-        )
+
+        classification = data["data"][0]["value_classification"]
 
         return value, classification
 
     except Exception:
         return None, "Unavailable"
 
-
 # =========================
-# ALPHALENS DASHBOARD
+# DASHBOARD
 # =========================
 
 print("\n====================================")
-print("   AlphaLens Portfolio Intelligence")
+print(" AlphaLens Portfolio Intelligence")
 print("====================================\n")
 
 # =========================
-# TRENDING COINS
+# TRENDING
 # =========================
 
 trending = get_trending_coins()
 
 if trending:
-
     print("🔥 Trending Coins")
     print("----------------------------")
 
@@ -139,7 +149,7 @@ if trending:
     print()
 
 # =========================
-# GLOBAL MARKET DATA
+# GLOBAL MARKET
 # =========================
 
 global_data = get_global_market()
@@ -150,7 +160,6 @@ market_structure = "Unknown"
 market_sentiment = "Neutral"
 
 if global_data:
-
     market_cap_t = (
         global_data["market_cap"]
         / 1_000_000_000_000
@@ -206,15 +215,12 @@ if global_data:
     print()
 
 # =========================
-# FEAR & GREED INDEX
+# FEAR & GREED
 # =========================
 
-fear_value, fear_classification = (
-    get_fear_greed()
-)
+fear_value, fear_classification = get_fear_greed()
 
 if fear_value:
-
     print("😨 Fear & Greed Index")
     print("----------------------------")
 
@@ -230,16 +236,18 @@ if fear_value:
     print()
 
 # =========================
-# USER PORTFOLIO INPUT
+# PORTFOLIO INPUT
 # =========================
 
 coins = input(
     "Enter coins separated by commas "
-    "(bitcoin,ethereum,sui,solana): "
+    "(bitcoin,ethereum,solana,sui,xrp): "
 ).strip()
 
 if not coins:
-    print("❌ No coins entered.")
+    print(
+        "❌ No coins entered."
+    )
     exit()
 
 coin_list = [
@@ -248,27 +256,19 @@ coin_list = [
     if coin.strip()
 ]
 
-portfolio_data = []
 portfolio_prompt_data = []
 
 print("\n📊 Portfolio Summary")
 print("----------------------------")
 
 for coin in coin_list:
-
     price = get_price(coin)
 
     if price:
-
         print(
             f"{coin.upper():<12} "
             f"${price:,.4f}"
         )
-
-        portfolio_data.append({
-            "coin": coin,
-            "price": price
-        })
 
         portfolio_prompt_data.append(
             f"{coin.upper()} : "
@@ -276,21 +276,20 @@ for coin in coin_list:
         )
 
     else:
-
         print(
             f"{coin.upper():<12} "
-            f"Coin not found"
+            f"Price unavailable"
         )
 
 # =========================
-# BUILD AI PROMPT
+# AI PROMPT
 # =========================
 
 prompt = f"""
 You are AlphaLens AI.
 
-You are an institutional-grade crypto portfolio analyst,
-market strategist,
+You are an institutional-grade crypto
+portfolio analyst, market strategist,
 and risk manager.
 
 Portfolio Data:
@@ -301,16 +300,11 @@ Trending Coins:
 
 {', '.join(trending) if trending else 'None'}
 
-Global Market Data:
-
 Market Cap:
 ${market_cap_t:.2f}T
 
 24h Volume:
 ${volume_b:.2f}B
-
-BTC Dominance:
-{global_data['btc_dominance']:.2f}%
 
 Market Structure:
 {market_structure}
@@ -323,50 +317,26 @@ Fear & Greed:
 
 Provide:
 
-1. Portfolio Health Score (0-100)
+1. Portfolio Health Score
 
-2. Portfolio Risk Score (0-100)
+2. Portfolio Risk Score
 
-3. Diversification Score (0-100)
+3. Diversification Score
 
 4. Market Sentiment
-(Bullish, Neutral, Bearish)
 
 5. Strongest Asset
-(Explain why)
 
 6. Highest Risk Asset
-(Explain why)
 
-7. Buy / Hold / Reduce signal
-for each asset
+7. Buy / Hold / Reduce
+   for each asset
 
 8. Recommended Allocation
 
-Example:
-
-BTC: 40%
-ETH: 25%
-SOL: 15%
-SUI: 10%
-USDT: 10%
-
 9. Opportunity Watchlist
 
-Suggest 3 assets worth monitoring.
-
-Explain:
-- upside potential
-- risks
-- narrative
-
 10. Market Narrative
-
-Cover:
-- Bitcoin trend
-- Altcoin trend
-- Risk appetite
-- Macro environment
 
 11. Risk Management Advice
 
@@ -376,7 +346,7 @@ Cover:
 
 14. Final Trading Stance
 
-Choose ONE:
+Choose one:
 
 Strong Buy
 Buy
@@ -386,10 +356,7 @@ Rebalance
 Reduce Risk
 Defensive
 
-Keep the report concise,
-professional,
-institutional-grade,
-and under 700 words.
+Keep response under 700 words.
 """
 
 # =========================
@@ -399,17 +366,12 @@ and under 700 words.
 print("\n🤖 Generating AI Analysis...\n")
 
 try:
-
     response = client.chat.completions.create(
         model="qwen3.6-plus",
         messages=[
             {
                 "role": "system",
-                "content": (
-                    "You are AlphaLens AI, "
-                    "an institutional-grade "
-                    "crypto portfolio strategist."
-                )
+                "content": "You are AlphaLens AI."
             },
             {
                 "role": "user",
@@ -428,7 +390,6 @@ try:
     )
 
 except Exception as e:
-
     report = (
         "AI Analysis unavailable.\n\n"
         f"Error: {str(e)}"
@@ -439,7 +400,7 @@ except Exception as e:
 # =========================
 
 print("\n====================================")
-print("      AlphaLens Portfolio Analysis")
+print(" AlphaLens Portfolio Analysis")
 print("====================================\n")
 
 print(report)
@@ -448,23 +409,19 @@ print(report)
 # SAVE REPORT
 # =========================
 
-try:
+os.makedirs(
+    "reports",
+    exist_ok=True
+)
 
-    with open(
-        "portfolio_report.txt",
-        "w",
-        encoding="utf-8"
-    ) as f:
+with open(
+    "reports/portfolio_report.txt",
+    "w",
+    encoding="utf-8"
+) as f:
+    f.write(report)
 
-        f.write(report)
-
-    print(
-        "\n✅ Portfolio report saved as "
-        "'portfolio_report.txt'"
-    )
-
-except Exception as e:
-
-    print(
-        f"\n❌ Failed to save report: {e}"
-    )
+print(
+    "\n✅ Portfolio report saved to "
+    "reports/portfolio_report.txt"
+)

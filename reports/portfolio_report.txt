@@ -1,0 +1,36 @@
+**AlphaLens AI Institutional Report**
+
+1. **Portfolio Health Score:** 66/100 (Moderate). BTC anchor provides baseline stability, but altcoin exposure and extreme fear conditions compress risk-adjusted returns.
+
+2. **Portfolio Risk Score:** 7.5/10 (Elevated). High beta sensitivity to liquidity contraction; altcoins face disproportionate drawdown pressure in risk-off regimes.
+
+3. **Diversification Score:** 4/10 (Concentrated). Three highly correlated assets lack stablecoin, DeFi, or non-crypto hedges. Sector overlap limits true downside protection.
+
+4. **Market Sentiment:** Risk-Off / Extreme Fear. Capital flight from speculative assets to BTC and fiat/stablecoins dominates spot and derivatives flow.
+
+5. **Strongest Asset:** Bitcoin. BTC-led structure confirmed. Institutional accumulation, ETF dominance, and relative price stability make it the only asset exhibiting defensive characteristics.
+
+6. **Highest Risk Asset:** SUI. High-beta L1 with thin liquidity pockets, elevated volatility, and strong correlation to risk appetite. Vulnerable to deeper capitulation.
+
+7. **Buy / Hold / Reduce:**
+   • BTC: Selective Buy (scale on 5–8% dips)
+   • ETH: Hold (await reclaim of $1,750 with volume confirmation)
+   • SUI: Reduce (trim 40–50%, recycle into BTC/cash)
+
+8. **Recommended Allocation:** BTC 60% | ETH 25% | SUI 5% | Stablecoins 10%. Prioritizes capital preservation while retaining asymmetric upside exposure.
+
+9. **Opportunity Watchlist:** WLD (AI narrative catalyst, monitor for volume breakouts), PENGU (meme-cycle rotation, high risk/reward). LAB/HYPE: avoid until macro liquidity stabilizes.
+
+10. **Market Narrative:** Liquidity-driven consolidation under BTC dominance. Extreme fear often precedes macro bottoms, but current order flow favors safe-haven crypto assets. Altseason delayed until stablecoin expansion and risk-on catalysts emerge.
+
+11. **Risk Management Advice:** 
+    • Set 12–15% trailing stops on alt positions
+    • Maintain 10% stablecoin dry powder for volatility harvesting
+    • Zero leverage; use put spreads if downside hedging required
+    • Monitor BTC ETF net flows, perpetual funding rates, and stablecoin market cap for institutional regime shifts
+
+12. **AI Confidence Score:** 78%. Strong alignment across sentiment, structure, and on-chain metrics. Macro liquidity and regulatory overhang remain primary uncertainty variables.
+
+13. **Executive Summary:** The portfolio is structurally anchored by BTC but exposed to altcoin beta in a risk-off, extreme fear environment. Defensive positioning, strategic de-risking of high-volatility assets, and disciplined BTC accumulation on capitulation dips are optimal. Preserve capital, wait for liquidity confirmation, and avoid chasing low-liquidity narratives.
+
+14. **Final Trading Stance:** Defensive
