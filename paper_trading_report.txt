@@ -1,13 +1,20 @@
-AlphaLens Paper Trading Report
+AlphaLens V7 Report
+========================================
+
 Trades Analyzed: 2
-Open Trades: 2
 Winning Trades: 2
 Losing Trades: 0
 Win Rate: 100.00%
-Average PnL: 1.63%
-Total Portfolio PnL: 3.25%
-Best Trade: ETH (1.93%)
-Worst Trade: BTC (1.33%)
+Average PnL: 1.50%
+Total Portfolio PnL: 3.00%
+Average Confidence: 71.00
 Risk Rating: LOW
-Health Score: 70.49/100
-Portfolio Status: GOOD ✅
+Health Score: 71.6/100
+Portfolio Status: GOOD
+
+Best Trade: ETH (1.70%)
+Worst Trade: BTC (1.30%)
+
+Recommendations
+BTC | Signal=BUY | Confidence=78.0 | PnL=1.30% | Action=HOLD
+ETH | Signal=HOLD | Confidence=64.0 | PnL=1.70% | Action=HOLD

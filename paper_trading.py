@@ -1,10 +1,22 @@
+
+# AlphaLens Paper Trading V7
+# Full replacement file generated for CSV schema:
+# timestamp,coin,signal,confidence,entry_price,status
+
+import os
 import csv
 import time
+import statistics
 import requests
+from dotenv import load_dotenv
+from openai import OpenAI
 
-# =========================
-# SYMBOL → COINGECKO ID
-# =========================
+load_dotenv()
+
+client = OpenAI(
+    api_key=os.getenv("QWEN_API_KEY"),
+    base_url="https://hackathon.bitgetops.com/v1"
+)
 
 COIN_MAP = {
     "BTC": "bitcoin",
@@ -24,345 +36,401 @@ COIN_MAP = {
     "TRX": "tron"
 }
 
-# =========================
-# PRICE FETCHER
-# =========================
-
 def get_price(symbol):
-    symbol = symbol.upper()
-
-    coin_id = COIN_MAP.get(symbol)
-
+    coin_id = COIN_MAP.get(symbol.upper())
     if not coin_id:
         return None
-
-    url = (
-        "https://api.coingecko.com/api/v3/simple/price"
-        f"?ids={coin_id}&vs_currencies=usd"
-    )
-
     try:
-        response = requests.get(
-            url,
+        r = requests.get(
+            f"https://api.coingecko.com/api/v3/simple/price?ids={coin_id}&vs_currencies=usd",
             timeout=10,
-            headers={
-                "User-Agent": "AlphaLens/4.0"
-            }
+            headers={"User-Agent":"AlphaLens-V7"}
         )
-
-        response.raise_for_status()
-
-        data = response.json()
-
-        if coin_id not in data:
-            return None
-
-        return float(data[coin_id]["usd"])
-
-    except requests.exceptions.RequestException:
-        return None
-
+        r.raise_for_status()
+        return float(r.json()[coin_id]["usd"])
     except Exception:
         return None
 
+def ai_review(prompt):
+    try:
+        response = client.chat.completions.create(
+            model="qwen3.6-plus",
+            messages=[{"role":"user","content":prompt}]
+        )
+        return response.choices[0].message.content
+    except Exception as e:
+        return f"AI unavailable: {e}"
 
-# =========================
-# DASHBOARD
-# =========================
+print("\n===== ALPHALENS V7 =====\n")
 
-print("\n==============================")
-print(" AlphaLens Paper Trading V4")
-print("==============================\n")
+trades = []
 
-winning_trades = 0
-losing_trades = 0
-trade_count = 0
-open_trades = 0
+with open("paper_trades.csv","r",encoding="utf-8") as f:
+    reader = csv.DictReader(f)
 
-total_pnl = 0
+    for row in reader:
 
-best_trade_coin = None
-best_trade_pnl = float("-inf")
+        coin = row["coin"].upper().strip()
+        signal = row["signal"].upper().strip()
+        confidence = float(row["confidence"])
+        entry = float(row["entry_price"])
+        status = row["status"].upper().strip()
 
-worst_trade_coin = None
-worst_trade_pnl = float("inf")
+        current = get_price(coin)
 
-report_lines = []
+        if current is None:
+            continue
 
-try:
+        pnl = ((current-entry)/entry)*100
 
-    with open(
-        "paper_trades.csv",
-        "r",
-        encoding="utf-8"
-    ) as file:
+        trades.append({
+            "timestamp": row["timestamp"],
+            "coin": coin,
+            "signal": signal,
+            "confidence": confidence,
+            "entry": entry,
+            "current": current,
+            "status": status,
+            "pnl": pnl
+        })
 
-        reader = csv.DictReader(file)
+        time.sleep(1)
 
-        for trade in reader:
+if not trades:
+    print("No valid trades found.")
+    raise SystemExit
 
-            try:
+winning = len([t for t in trades if t["pnl"] >= 0])
+losing = len([t for t in trades if t["pnl"] < 0])
 
-                coin = trade["coin"].upper().strip()
-                signal = trade["signal"].upper().strip()
+win_rate = (winning / len(trades)) * 100
+avg_pnl = statistics.mean([t["pnl"] for t in trades])
+avg_confidence = statistics.mean([t["confidence"] for t in trades])
+total_pnl = sum([t["pnl"] for t in trades])
 
-                entry_price = float(
-                    trade["entry_price"]
-                )
+best_trade = max(trades, key=lambda x:x["pnl"])
+worst_trade = min(trades, key=lambda x:x["pnl"])
 
-                if entry_price <= 0:
-                    print(
-                        f"⚠ Invalid entry price for {coin}"
-                    )
-                    continue
+risk = "LOW" if win_rate >= 70 else "MEDIUM" if win_rate >= 50 else "HIGH"
 
-            except (
-                KeyError,
-                ValueError,
-                TypeError
-            ):
+health_score = min(
+    round((win_rate * 0.5) + (avg_confidence * 0.3) + (max(avg_pnl,0) * 0.2),2),
+    100
+)
 
-                print(
-                    "⚠ Skipping invalid trade row"
-                )
-                continue
+portfolio_status = (
+    "EXCELLENT"
+    if health_score >= 80 else
+    "GOOD"
+    if health_score >= 60 else
+    "NEUTRAL"
+    if health_score >= 40 else
+    "WEAK"
+)
 
-            current_price = get_price(
-                coin
-            )
+leaderboard = sorted(
+    trades,
+    key=lambda x:x["pnl"],
+    reverse=True
+)
 
-            time.sleep(1)
-
-            if current_price is None:
-
-                print(
-                    f"⚠ Price unavailable for {coin}"
-                )
-                continue
-
-            price_change = (
-                current_price
-                - entry_price
-            )
-
-            pnl = (
-                price_change
-                / entry_price
-            ) * 100
-
-            status = (
-                "WINNING"
-                if pnl >= 0
-                else "LOSING"
-            )
-
-            trade_count += 1
-            open_trades += 1
-            total_pnl += pnl
-
-            if pnl >= 0:
-                winning_trades += 1
-            else:
-                losing_trades += 1
-
-            if pnl > best_trade_pnl:
-                best_trade_pnl = pnl
-                best_trade_coin = coin
-
-            if pnl < worst_trade_pnl:
-                worst_trade_pnl = pnl
-                worst_trade_coin = coin
-
-            print("------------------------------")
-            print(f"Coin: {coin}")
-            print(f"Signal: {signal}")
-
-            print(
-                f"Entry Price: "
-                f"${entry_price:,.2f}"
-            )
-
-            print(
-                f"Current Price: "
-                f"${current_price:,.2f}"
-            )
-
-            print(
-                f"PnL: "
-                f"{pnl:.2f}%"
-            )
-
-            print(
-                f"Status: "
-                f"{status}"
-            )
-
-    print("\n==============================")
-    print(" PORTFOLIO SUMMARY")
-    print("==============================")
-
-    report_lines.append(
-        "AlphaLens Paper Trading Report"
-    )
-
-    if trade_count == 0:
-
-        print("No valid trades found.")
-
-        report_lines.append(
-            "No valid trades found."
+with open("leaderboard.txt","w",encoding="utf-8") as f:
+    for i, trade in enumerate(leaderboard, start=1):
+        f.write(
+            f"{i}. {trade['coin']} | "
+            f"PnL {trade['pnl']:.2f}% | "
+            f"Confidence {trade['confidence']}\n"
         )
 
+recommendations = []
+
+for trade in trades:
+
+    if trade["pnl"] > 10:
+        action = "REDUCE"
+    elif trade["pnl"] >= 0:
+        action = "HOLD"
     else:
+        action = "BUY"
 
-        average_pnl = (
-            total_pnl
-            / trade_count
-        )
-
-        win_rate = (
-            winning_trades
-            / trade_count
-        ) * 100
-
-        # =========================
-        # RISK ENGINE
-        # =========================
-
-        if win_rate >= 70:
-            risk_rating = "LOW"
-        elif win_rate >= 50:
-            risk_rating = "MEDIUM"
-        else:
-            risk_rating = "HIGH"
-
-        # =========================
-        # HEALTH SCORE
-        # =========================
-
-        health_score = (
-            (win_rate * 0.7)
-            +
-            (max(average_pnl, 0) * 0.3)
-        )
-
-        health_score = min(
-            round(
-                health_score,
-                2
-            ),
-            100
-        )
-
-        if health_score >= 75:
-            portfolio_status = "EXCELLENT 🚀"
-        elif health_score >= 50:
-            portfolio_status = "GOOD ✅"
-        elif health_score >= 30:
-            portfolio_status = "NEUTRAL ⚠"
-        else:
-            portfolio_status = "WEAK ❌"
-
-        print(
-            f"\nTrades Analyzed: "
-            f"{trade_count}"
-        )
-
-        print(
-            f"Open Trades: "
-            f"{open_trades}"
-        )
-
-        print(
-            f"Winning Trades: "
-            f"{winning_trades}"
-        )
-
-        print(
-            f"Losing Trades: "
-            f"{losing_trades}"
-        )
-
-        print(
-            f"Win Rate: "
-            f"{win_rate:.2f}%"
-        )
-
-        print(
-            f"Average PnL: "
-            f"{average_pnl:.2f}%"
-        )
-
-        print(
-            f"Total Portfolio PnL: "
-            f"{total_pnl:.2f}%"
-        )
-
-        print(
-            f"Best Trade: "
-            f"{best_trade_coin} "
-            f"({best_trade_pnl:.2f}%)"
-        )
-
-        print(
-            f"Worst Trade: "
-            f"{worst_trade_coin} "
-            f"({worst_trade_pnl:.2f}%)"
-        )
-
-        print(
-            f"Risk Rating: "
-            f"{risk_rating}"
-        )
-
-        print(
-            f"Health Score: "
-            f"{health_score}/100"
-        )
-
-        print(
-            f"Portfolio Status: "
-            f"{portfolio_status}"
-        )
-
-        report_lines.extend([
-            f"Trades Analyzed: {trade_count}",
-            f"Open Trades: {open_trades}",
-            f"Winning Trades: {winning_trades}",
-            f"Losing Trades: {losing_trades}",
-            f"Win Rate: {win_rate:.2f}%",
-            f"Average PnL: {average_pnl:.2f}%",
-            f"Total Portfolio PnL: {total_pnl:.2f}%",
-            f"Best Trade: {best_trade_coin} ({best_trade_pnl:.2f}%)",
-            f"Worst Trade: {worst_trade_coin} ({worst_trade_pnl:.2f}%)",
-            f"Risk Rating: {risk_rating}",
-            f"Health Score: {health_score}/100",
-            f"Portfolio Status: {portfolio_status}"
-        ])
-
-        with open(
-            "paper_trading_report.txt",
-            "w",
-            encoding="utf-8"
-        ) as report_file:
-
-            report_file.write(
-                "\n".join(report_lines)
-            )
-
-        print(
-            "\n✅ Report saved as "
-            "'paper_trading_report.txt'"
-        )
-
-except FileNotFoundError:
-
-    print(
-        "❌ paper_trades.csv not found."
+    recommendations.append(
+        f"{trade['coin']} | "
+        f"Signal={trade['signal']} | "
+        f"Confidence={trade['confidence']} | "
+        f"PnL={trade['pnl']:.2f}% | "
+        f"Action={action}"
     )
 
-except Exception as e:
+with open("trade_recommendations.txt","w",encoding="utf-8") as f:
+    f.write("\n".join(recommendations))
 
-    print(
-        f"❌ Unexpected error: {e}"
+metrics = f'''
+Trades Analyzed: {len(trades)}
+Winning Trades: {winning}
+Losing Trades: {losing}
+Win Rate: {win_rate:.2f}%
+Average PnL: {avg_pnl:.2f}%
+Total Portfolio PnL: {total_pnl:.2f}%
+Average Confidence: {avg_confidence:.2f}
+Risk Rating: {risk}
+Health Score: {health_score}/100
+Portfolio Status: {portfolio_status}
+'''
+
+with open("portfolio_metrics.txt","w",encoding="utf-8") as f:
+    f.write(metrics)
+
+portfolio_prompt = f'''
+Analyze this portfolio.
+
+Trades: {len(trades)}
+Win Rate: {win_rate:.2f}%
+Average PnL: {avg_pnl:.2f}%
+Average Confidence: {avg_confidence:.2f}
+Risk Rating: {risk}
+Health Score: {health_score}
+
+Provide assessment, strengths, weaknesses,
+risk analysis and actions.
+'''
+
+review = ai_review(portfolio_prompt)
+
+with open("trade_review.txt","w",encoding="utf-8") as f:
+    f.write(review)
+
+report = []
+report.append("AlphaLens V7 Report")
+report.append("="*40)
+report.append(metrics)
+report.append(f"Best Trade: {best_trade['coin']} ({best_trade['pnl']:.2f}%)")
+report.append(f"Worst Trade: {worst_trade['coin']} ({worst_trade['pnl']:.2f}%)")
+report.append("")
+report.append("Recommendations")
+report.extend(recommendations)
+
+with open("paper_trading_report.txt","w",encoding="utf-8") as f:
+    f.write("\n".join(report))
+
+print(metrics)
+print("\nBest Trade:", best_trade["coin"])
+print("Worst Trade:", worst_trade["coin"])
+print("\nFiles generated successfully.")
+
+# AlphaLens Paper Trading V7
+# Full replacement file generated for CSV schema:
+# timestamp,coin,signal,confidence,entry_price,status
+
+import os
+import csv
+import time
+import statistics
+import requests
+from dotenv import load_dotenv
+from openai import OpenAI
+
+load_dotenv()
+
+client = OpenAI(
+    api_key=os.getenv("QWEN_API_KEY"),
+    base_url="https://hackathon.bitgetops.com/v1"
+)
+
+COIN_MAP = {
+    "BTC": "bitcoin",
+    "ETH": "ethereum",
+    "SOL": "solana",
+    "XRP": "ripple",
+    "DOGE": "dogecoin",
+    "ADA": "cardano",
+    "BNB": "binancecoin",
+    "AVAX": "avalanche-2",
+    "DOT": "polkadot",
+    "LINK": "chainlink",
+    "SUI": "sui",
+    "APT": "aptos",
+    "ARB": "arbitrum",
+    "OP": "optimism",
+    "TRX": "tron"
+}
+
+def get_price(symbol):
+    coin_id = COIN_MAP.get(symbol.upper())
+    if not coin_id:
+        return None
+    try:
+        r = requests.get(
+            f"https://api.coingecko.com/api/v3/simple/price?ids={coin_id}&vs_currencies=usd",
+            timeout=10,
+            headers={"User-Agent":"AlphaLens-V7"}
+        )
+        r.raise_for_status()
+        return float(r.json()[coin_id]["usd"])
+    except Exception:
+        return None
+
+def ai_review(prompt):
+    try:
+        response = client.chat.completions.create(
+            model="qwen3.6-plus",
+            messages=[{"role":"user","content":prompt}]
+        )
+        return response.choices[0].message.content
+    except Exception as e:
+        return f"AI unavailable: {e}"
+
+print("\n===== ALPHALENS V7 =====\n")
+
+trades = []
+
+with open("paper_trades.csv","r",encoding="utf-8") as f:
+    reader = csv.DictReader(f)
+
+    for row in reader:
+
+        coin = row["coin"].upper().strip()
+        signal = row["signal"].upper().strip()
+        confidence = float(row["confidence"])
+        entry = float(row["entry_price"])
+        status = row["status"].upper().strip()
+
+        current = get_price(coin)
+
+        if current is None:
+            continue
+
+        pnl = ((current-entry)/entry)*100
+
+        trades.append({
+            "timestamp": row["timestamp"],
+            "coin": coin,
+            "signal": signal,
+            "confidence": confidence,
+            "entry": entry,
+            "current": current,
+            "status": status,
+            "pnl": pnl
+        })
+
+        time.sleep(1)
+
+if not trades:
+    print("No valid trades found.")
+    raise SystemExit
+
+winning = len([t for t in trades if t["pnl"] >= 0])
+losing = len([t for t in trades if t["pnl"] < 0])
+
+win_rate = (winning / len(trades)) * 100
+avg_pnl = statistics.mean([t["pnl"] for t in trades])
+avg_confidence = statistics.mean([t["confidence"] for t in trades])
+total_pnl = sum([t["pnl"] for t in trades])
+
+best_trade = max(trades, key=lambda x:x["pnl"])
+worst_trade = min(trades, key=lambda x:x["pnl"])
+
+risk = "LOW" if win_rate >= 70 else "MEDIUM" if win_rate >= 50 else "HIGH"
+
+health_score = min(
+    round((win_rate * 0.5) + (avg_confidence * 0.3) + (max(avg_pnl,0) * 0.2),2),
+    100
+)
+
+portfolio_status = (
+    "EXCELLENT"
+    if health_score >= 80 else
+    "GOOD"
+    if health_score >= 60 else
+    "NEUTRAL"
+    if health_score >= 40 else
+    "WEAK"
+)
+
+leaderboard = sorted(
+    trades,
+    key=lambda x:x["pnl"],
+    reverse=True
+)
+
+with open("leaderboard.txt","w",encoding="utf-8") as f:
+    for i, trade in enumerate(leaderboard, start=1):
+        f.write(
+            f"{i}. {trade['coin']} | "
+            f"PnL {trade['pnl']:.2f}% | "
+            f"Confidence {trade['confidence']}\n"
+        )
+
+recommendations = []
+
+for trade in trades:
+
+    if trade["pnl"] > 10:
+        action = "REDUCE"
+    elif trade["pnl"] >= 0:
+        action = "HOLD"
+    else:
+        action = "BUY"
+
+    recommendations.append(
+        f"{trade['coin']} | "
+        f"Signal={trade['signal']} | "
+        f"Confidence={trade['confidence']} | "
+        f"PnL={trade['pnl']:.2f}% | "
+        f"Action={action}"
     )
+
+with open("trade_recommendations.txt","w",encoding="utf-8") as f:
+    f.write("\n".join(recommendations))
+
+metrics = f'''
+Trades Analyzed: {len(trades)}
+Winning Trades: {winning}
+Losing Trades: {losing}
+Win Rate: {win_rate:.2f}%
+Average PnL: {avg_pnl:.2f}%
+Total Portfolio PnL: {total_pnl:.2f}%
+Average Confidence: {avg_confidence:.2f}
+Risk Rating: {risk}
+Health Score: {health_score}/100
+Portfolio Status: {portfolio_status}
+'''
+
+with open("portfolio_metrics.txt","w",encoding="utf-8") as f:
+    f.write(metrics)
+
+portfolio_prompt = f'''
+Analyze this portfolio.
+
+Trades: {len(trades)}
+Win Rate: {win_rate:.2f}%
+Average PnL: {avg_pnl:.2f}%
+Average Confidence: {avg_confidence:.2f}
+Risk Rating: {risk}
+Health Score: {health_score}
+
+Provide assessment, strengths, weaknesses,
+risk analysis and actions.
+'''
+
+review = ai_review(portfolio_prompt)
+
+with open("trade_review.txt","w",encoding="utf-8") as f:
+    f.write(review)
+
+report = []
+report.append("AlphaLens V7 Report")
+report.append("="*40)
+report.append(metrics)
+report.append(f"Best Trade: {best_trade['coin']} ({best_trade['pnl']:.2f}%)")
+report.append(f"Worst Trade: {worst_trade['coin']} ({worst_trade['pnl']:.2f}%)")
+report.append("")
+report.append("Recommendations")
+report.extend(recommendations)
+
+with open("paper_trading_report.txt","w",encoding="utf-8") as f:
+    f.write("\n".join(report))
+
+print(metrics)
+print("\nBest Trade:", best_trade["coin"])
+print("Worst Trade:", worst_trade["coin"])
+print("\nFiles generated successfully.")
