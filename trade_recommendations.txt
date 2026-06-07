@@ -1,2 +1,2 @@
-BTC | Signal=BUY | Confidence=78.0 | PnL=1.30% | Action=HOLD
-ETH | Signal=HOLD | Confidence=64.0 | PnL=1.70% | Action=HOLD
+BTC | Signal=BUY | Confidence=78.0 | PnL=1.65% | Action=HOLD
+ETH | Signal=HOLD | Confidence=64.0 | PnL=2.12% | Action=HOLD
