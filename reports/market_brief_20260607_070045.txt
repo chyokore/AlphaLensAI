@@ -1,0 +1,23 @@
+**AlphaLens AI Daily Market Brief**
+
+**1. Market Mood:** Cautiously Bullish
+
+**2. Confidence Score:** 74/100
+
+**3. Top Opportunity:** Tier-1 Layer-2 scaling ecosystems and institutional-grade AI/Compute protocols demonstrating sustained TVL growth, protocol revenue, and real yield generation.
+
+**4. Highest Risk Asset:** Highly leveraged micro-cap memecoins and narrative-driven tokens lacking on-chain utility, deep liquidity, or sustainable tokenomics.
+
+**5. Market Narrative:**
+• *Bitcoin trend:* BTC maintains a structural uptrend on higher timeframes, consolidating above key weekly support. Spot ETF flows show intermittent institutional accumulation, with price action respecting established demand zones ahead of macro catalysts.
+• *Altcoin trend:* Altcoin dominance remains suppressed. Capital rotation is highly selective, favoring infrastructure, DePIN, and real-world asset (RWA) protocols. Broad altcoin breadth is weak, with distribution pressure evident in low-float, high-FDV assets.
+• *Liquidity conditions:* Global stablecoin supply shows gradual expansion. Macro liquidity is stabilizing but not yet expansive; funding rates are neutral, and open interest remains healthy, indicating spot-driven rather than leverage-fueled momentum.
+• *Market structure:* Weekly chart preserves a higher-low sequence. Order book depth shows bid-side resilience at macro support. Derivatives positioning is balanced, reducing near-term liquidation cascade risk while awaiting volatility expansion.
+
+**6. Key Risk:** Delayed central bank easing or adverse macro data triggering risk-off flows, compounded by potential spot ETF net outflows, regulatory enforcement on DeFi/stablecoin issuers, or sudden exchange liquidity fragmentation.
+
+**7. Actionable Insight:** Maintain core BTC/ETH exposure (60–70% of risk capital). Deploy incrementally on volatility dips into high-conviction infrastructure names. Hedge tail risk via stablecoin yield or defined-risk options strategies. Avoid chasing parabolic altcoin breakouts without confirmed volume follow-through and sustainable on-chain metrics.
+
+**8. One-Sentence Executive Summary:** Institutional accumulation anchors Bitcoin’s structural uptrend, yet fragmented altcoin liquidity and macro uncertainty demand selective exposure and disciplined capital allocation.
+
+**9. Final Market Stance:** Selective Buy
