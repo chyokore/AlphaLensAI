@@ -1,0 +1,3 @@
+timestamp,coin,signal,confidence,entry_price,status
+2026-06-09 10:00:00,bitcoin,BUY,78,60804,OPEN
+2026-06-09 10:05:00,ethereum,HOLD,64,1563,OPEN
