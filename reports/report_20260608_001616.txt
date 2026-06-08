@@ -1,0 +1,30 @@
+1. Market Sentiment
+Moderately bullish. Institutional accumulation via spot ETFs remains steady, while retail participation is cautiously increasing. Funding rates are neutral-positive, and long-term holder supply is tightening, indicating underlying demand outweighs immediate distribution.
+
+2. Short-Term Outlook
+Expect consolidation within the $61,500–$64,200 range over the next 48–72 hours, with a high probability of a measured upward breakout if volume sustains above the 24-hour average. Momentum indicators show latent bullish divergence forming on lower timeframes.
+
+3. Risk Level
+Medium-High. Elevated macro uncertainty, periodic derivatives deleveraging, and weekend liquidity gaps create potential for sharp, short-lived drawdowns despite structural support.
+
+4. Trading Signal: BUY
+
+5. Confidence Score: 74/100
+
+6. Suggested Entry Price
+$62,600 – $62,900
+
+7. Suggested Stop Loss
+$60,800
+
+8. Suggested Take Profit
+$66,500
+
+9. AI Market Narrative
+BTC is currently pricing in a consolidation phase following its recent rally cycle. On-chain data reveals declining exchange balances and steady whale accumulation around the $62k liquidity pocket, suggesting smart money is positioning for the next leg up. Order book depth shows strong bid support with minimal overhead sell walls, while algorithmic liquidity models indicate a favorable risk-to-reward setup for swing entries. The broader crypto market structure remains correlated with institutional capital inflows rather than speculative retail flows, providing a more sustainable upward trajectory if macro conditions remain stable.
+
+10. Key Risk Factors
+- Sudden shifts in U.S. interest rate expectations or inflation data
+- Large-scale miner distribution or unexpected OTC block sales
+- Rapid derivatives leverage flushes triggering cascade liquidations below $61k
+- Regulatory headlines affecting exchange liquidity or stablecoin infrastructure

@@ -5,16 +5,16 @@ Trades Analyzed: 2
 Winning Trades: 2
 Losing Trades: 0
 Win Rate: 100.00%
-Average PnL: 1.89%
-Total Portfolio PnL: 3.77%
+Average PnL: 2.70%
+Total Portfolio PnL: 5.40%
 Average Confidence: 71.00
 Risk Rating: LOW
-Health Score: 71.68/100
+Health Score: 71.84/100
 Portfolio Status: GOOD
 
-Best Trade: ETH (2.12%)
-Worst Trade: BTC (1.65%)
+Best Trade: ETH (3.90%)
+Worst Trade: BTC (1.50%)
 
 Recommendations
-BTC | Signal=BUY | Confidence=78.0 | PnL=1.65% | Action=HOLD
-ETH | Signal=HOLD | Confidence=64.0 | PnL=2.12% | Action=HOLD
+BTC | Signal=BUY | Confidence=78.0 | PnL=1.50% | Action=HOLD
+ETH | Signal=HOLD | Confidence=64.0 | PnL=3.90% | Action=HOLD

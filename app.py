@@ -140,7 +140,8 @@ Respond entirely in {language}.
 IMPORTANT:
 Always keep these two fields in English:
 
-Trading Signal: BUY/HOLD/REDUCE
+For simulation purposes, always return either BUY or REDUCE.
+Do not return HOLD.
 Confidence Score: XX/100
 
 Keep the report concise,
@@ -160,6 +161,10 @@ try:
     )
 
     report = response.choices[0].message.content
+
+    print("\n===== RAW AI RESPONSE =====")
+    print(report)
+    print("==========================\n")
 
 except Exception as e:
     report = (
@@ -207,13 +212,15 @@ print(
 # SIGNAL EXTRACTION
 # =========================
 
-signal = "HOLD"
-confidence = "64"
+signal = "UNKNOWN"
+confidence = "0"
 
 try:
     report_upper = report.upper()
 
+    # =========================
     # SIGNAL
+    # =========================
 
     signal_patterns = [
         r"TRADING SIGNAL\s*:\s*(BUY)",
@@ -224,20 +231,25 @@ try:
     for pattern in signal_patterns:
         signal_match = re.search(
             pattern,
-            report_upper
+            report_upper,
+            re.IGNORECASE
         )
 
         if signal_match:
-            signal = signal_match.group(1)
+            signal = signal_match.group(1).upper()
             break
 
+    # =========================
     # CONFIDENCE
+    # =========================
 
     confidence_patterns = [
-        r"CONFIDENCE\s*SCORE.*?([0-9]{{1,3}})\s*/\s*100",
-        r"CONFIDENCE\s*SCORE.*?([0-9]{{1,3}})",
-        r"CONFIDENCE.*?([0-9]{{1,3}})"
+        r"CONFIDENCE\s*SCORE\s*:?\s*([0-9]{1,3})\s*/\s*100",
+        r"CONFIDENCE\s*SCORE\s*:?\s*([0-9]{1,3})",
+        r"CONFIDENCE\s*:?\s*([0-9]{1,3})"
     ]
+
+    confidence_match = None
 
     for pattern in confidence_patterns:
         confidence_match = re.search(
@@ -247,25 +259,64 @@ try:
         )
 
         if confidence_match:
-            score = int(
-                confidence_match.group(1)
-            )
+            score = int(confidence_match.group(1))
 
             if 0 <= score <= 100:
                 confidence = str(score)
                 break
 
-except Exception:
-    pass
+    # =========================
+    # DEBUG
+    # =========================
 
+    print("\n===== CONFIDENCE DEBUG =====")
+
+    if confidence_match:
+        print("✅ Match found")
+        print("Pattern:", pattern)
+        print("Extracted:", confidence_match.group(1))
+    else:
+        print("❌ No confidence match found")
+
+        print("\nFirst 1000 chars of report:")
+        print(report_upper[:1000])
+
+        print("\nPattern Tests:")
+
+        for test_pattern in confidence_patterns:
+            test_match = re.search(
+                test_pattern,
+                report_upper,
+                re.IGNORECASE | re.DOTALL
+            )
+
+            print(f"Testing: {test_pattern}")
+
+            if test_match:
+                print("✅ MATCH")
+                print("Value:", test_match.group(1))
+            else:
+                print("❌ No Match")
+
+    print("============================\n")
+
+except Exception as e:
+    print(f"\nConfidence extraction error: {e}")
 # =========================
 # SAVE SIGNAL
 # =========================
 
+print("\n===== EXTRACTED SIGNAL =====")
+print(f"Coin: {symbol}")
+print(f"Signal: {signal}")
+print(f"Confidence: {confidence}")
+print("============================\n")
+
 save_signal(
     coin=symbol,
     signal=signal,
-    confidence=confidence
+    confidence=confidence,
+    entry_price=price
 )
 
 print("\n✅ Signal saved successfully!")

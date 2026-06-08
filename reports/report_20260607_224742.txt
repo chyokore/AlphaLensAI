@@ -1,0 +1,19 @@
+1. Market Sentiment: Cautiously bullish. Institutional inflows and declining exchange reserves outweigh retail hesitation, while derivatives positioning shows moderate, healthy leverage without extreme overextension.
+
+2. Short-Term Outlook: BTC is consolidating near a critical resistance cluster. A sustained close above $62,400 should open the path to $64,500–$65,800 within 7–10 sessions. Failure to break could trigger a shallow pullback to $60,500 support.
+
+3. Risk Level: Medium-High. Intraday volatility remains elevated due to macroeconomic data sensitivity, options expiry rebalancing, and periodic liquidity shifts in spot/futures markets.
+
+4. Trading Signal: BUY
+
+5. Confidence Score: 72/100
+
+6. Suggested Entry Price: $61,500 – $61,900
+
+7. Suggested Stop Loss: $59,800
+
+8. Suggested Take Profit: $64,600
+
+9. AI Market Narrative: Bitcoin is currently digesting post-halving supply constraints while absorbing institutional ETF flows. On-chain metrics indicate a net reduction in short-term holder supply, suggesting underlying accumulation. Technical structure shows higher lows forming on the 4H/1D charts, and volume profiles support a gradual upside resolution if broader risk sentiment remains neutral-to-positive.
+
+10. Key Risk Factors: Abrupt macroeconomic policy shifts (rate guidance, CPI surprises), sudden regulatory enforcement headlines, cascading liquidations in leveraged derivatives markets, and correlated sell-offs in traditional equity or bond markets.

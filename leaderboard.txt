@@ -1,2 +1,2 @@
-1. ETH | PnL 2.12% | Confidence 64.0
-2. BTC | PnL 1.65% | Confidence 78.0
+1. ETH | PnL 3.90% | Confidence 64.0
+2. BTC | PnL 1.50% | Confidence 78.0

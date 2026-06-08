@@ -80,6 +80,6 @@ print(brief)
 # Save report
 
 with open("market_brief.txt", "w", encoding="utf-8") as file:
-file.write(brief)
+    file.write(brief)
 
 print("\nMarket brief saved to market_brief.txt")
