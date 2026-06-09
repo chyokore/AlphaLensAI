@@ -50,10 +50,10 @@ print("\n====================")
 print(" ALPHALENS V7")
 print("====================\n")
 
-CSV_FILE = "paper_trades.csv"
+CSV_FILE = "signals.csv"
 
 if not os.path.exists(CSV_FILE):
-    print("paper_trades.csv not found.")
+    print("signals.csv not found.")
     raise SystemExit
 
 trades = []

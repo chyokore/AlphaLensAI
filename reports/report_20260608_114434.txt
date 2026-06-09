@@ -1,0 +1,30 @@
+1. Market Sentiment
+Neutral-to-cautiously bullish. Bitcoin is consolidating around $63.2k following recent volatility. Long-term holder accumulation remains steady, while spot exchange balances show mild profit-taking. Macro liquidity conditions and equity correlation are creating a mixed but stabilizing risk appetite.
+
+2. Short-Term Outlook
+Range-bound action is anticipated between $61,500 and $65,500 over the next 7–10 days. A sustained close above $65.8k could trigger momentum toward $68k, while a breakdown below $61.5k may expose $59,000. Volume compression suggests an imminent directional breakout.
+
+3. Risk Level
+Medium. Elevated intraday swings, sensitivity to macroeconomic data, and potential liquidity sweeps around technical support/resistance levels.
+
+4. Trading Signal: BUY
+
+5. Confidence Score: 72/100
+
+6. Suggested Entry Price
+$62,150 – $62,800 (limit zone)
+
+7. Suggested Stop Loss
+$60,450
+
+8. Suggested Take Profit
+$66,300
+
+9. AI Market Narrative
+Bitcoin is forming a higher-timeframe accumulation base as market structure resets post-volatility compression. On-chain metrics indicate persistent institutional spot buying, while exchange reserves sit near multi-month lows, reducing available sell-side liquidity. Derivatives funding has normalized, signaling deleveraging and healthier conditions for a sustained trend. Algorithmic order flow suggests market makers are positioning for a liquidity capture above recent consolidation, with a high probability of a volatility expansion following range compression.
+
+10. Key Risk Factors
+- Unexpected hawkish central bank signals or inflation surprises
+- Large-scale whale transfers to exchanges triggering localized sell pressure
+- Adverse shifts in perpetual funding rates or cascading long liquidations
+- Regulatory announcements impacting institutional capital deployment or spot ETF flows

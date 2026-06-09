@@ -1,20 +1,26 @@
 AlphaLens V7 Report
 ========================================
 
-Trades Analyzed: 2
-Winning Trades: 2
-Losing Trades: 0
-Win Rate: 100.00%
-Average PnL: 2.70%
-Total Portfolio PnL: 5.40%
-Average Confidence: 71.00
-Risk Rating: LOW
-Health Score: 71.84/100
-Portfolio Status: GOOD
+Trades Analyzed: 8
+Winning Trades: 5
+Losing Trades: 3
+Win Rate: 62.50%
+Average PnL: 0.33%
+Total Portfolio PnL: 2.64%
+Average Confidence: 70.38
+Risk Rating: MEDIUM
+Health Score: 52.43/100
+Portfolio Status: NEUTRAL
 
-Best Trade: ETH (3.90%)
-Worst Trade: BTC (1.50%)
+Best Trade: SOL (2.15%)
+Worst Trade: OP (-2.56%)
 
 Recommendations
-BTC | Signal=BUY | Confidence=78.0 | PnL=1.50% | Action=HOLD
-ETH | Signal=HOLD | Confidence=64.0 | PnL=3.90% | Action=HOLD
+XRP | Signal=BUY | Confidence=64.0 | PnL=-0.03% | Action=BUY
+APT | Signal=REDUCE | Confidence=64.0 | PnL=-1.49% | Action=BUY
+BTC | Signal=BUY | Confidence=74.0 | PnL=0.50% | Action=HOLD
+OP | Signal=REDUCE | Confidence=71.0 | PnL=-2.56% | Action=BUY
+ETH | Signal=BUY | Confidence=73.0 | PnL=0.68% | Action=HOLD
+ETH | Signal=BUY | Confidence=72.0 | PnL=1.37% | Action=HOLD
+SOL | Signal=BUY | Confidence=73.0 | PnL=2.15% | Action=HOLD
+AVAX | Signal=BUY | Confidence=72.0 | PnL=2.01% | Action=HOLD

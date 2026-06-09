@@ -1,2 +1,8 @@
-1. ETH | PnL 3.90% | Confidence 64.0
-2. BTC | PnL 1.50% | Confidence 78.0
+1. SOL | PnL 2.15% | Confidence 73.0
+2. AVAX | PnL 2.01% | Confidence 72.0
+3. ETH | PnL 1.37% | Confidence 72.0
+4. ETH | PnL 0.68% | Confidence 73.0
+5. BTC | PnL 0.50% | Confidence 74.0
+6. XRP | PnL -0.03% | Confidence 64.0
+7. APT | PnL -1.49% | Confidence 64.0
+8. OP | PnL -2.56% | Confidence 71.0
