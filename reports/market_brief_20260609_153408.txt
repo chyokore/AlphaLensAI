@@ -1,0 +1,31 @@
+**AlphaLens AI Daily Market Brief**
+
+**1. Market Mood**
+Cautiously Bullish
+
+**2. Confidence Score**
+Confidence Score: 74/100
+
+**3. Top Opportunity**
+Decentralized Compute & AI Infrastructure – sustained institutional allocation, rising on-chain utilization, and transparent revenue accrual provide asymmetric upside relative to broader altcoin beta.
+
+**4. Highest Risk Asset**
+Low-FDV Meme Ecosystems – elevated retail leverage, deteriorating on-chain velocity, and extreme sensitivity to liquidity shocks create pronounced downside asymmetry.
+
+**5. Market Narrative**
+• **Bitcoin Trend:** Range-bound consolidation ($60K–$68K) with institutional accumulation offsetting retail distribution. Spot ETF flows have stabilized, and weekly chart structure preserves higher lows.
+• **Altcoin Trend:** Capital is rotating into yield-generating and infrastructure narratives. Legacy L1/L2s underperform; alpha is concentrated in protocols demonstrating active user growth and protocol-generated revenue.
+• **Liquidity Conditions:** Aggregate stablecoin supply is expanding, indicating dry powder deployment. Perp funding rates remain near neutral, and exchange reserves show net outflows, supporting underlying spot demand.
+• **Market Structure:** BTC dominance holds ~54%, temporarily capping broad altcoin expansion. Derivatives open interest is elevated but structurally balanced, favoring controlled volatility over parabolic moves.
+
+**6. Key Risk**
+Macro policy mispricing (hawkish Fed repricing or sticky inflation data) combined with sudden spot ETF outflows could trigger a leverage cascade, breaching the $58K BTC structural support and forcing broad altcoin de-risking.
+
+**7. Actionable Insight**
+Scale into high-conviction infrastructure and RWA exposures on 10–15% spot pullbacks. Maintain a 60/25/15 core/alpha/cash allocation. Hedge tail risk via 30-day 15-delta OTM puts or structured collars. Avoid chasing momentum in low-liquidity segments until BTC confirms a daily close above $68.5K.
+
+**8. One-Sentence Executive Summary**
+Institutional BTC accumulation and expanding stablecoin liquidity support a cautiously bullish regime, warranting disciplined deployment into revenue-generating infrastructure while hedging against macro-driven leverage flushes.
+
+**9. Final Market Stance**
+Selective Buy

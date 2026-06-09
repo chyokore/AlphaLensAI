@@ -1,13 +1,25 @@
 from openai import OpenAI
 import os
+import streamlit as st
 from dotenv import load_dotenv
 
 load_dotenv()
 
-client = OpenAI(
-    api_key=os.getenv("QWEN_API_KEY"),
-    base_url="https://hackathon.bitgetops.com/v1"
-)
+api_key = os.getenv("QWEN_API_KEY")
+
+if not api_key:
+    try:
+        api_key = st.secrets["QWEN_API_KEY"]
+    except Exception:
+        api_key = None
+
+client = None
+
+if api_key:
+    client = OpenAI(
+        api_key=api_key,
+        base_url="https://hackathon.bitgetops.com/v1"
+    )
 
 def translate_text(text, language):
 
@@ -17,8 +29,10 @@ def translate_text(text, language):
     if not text.strip():
         return text
 
-    try:
+    if client is None:
+        return text
 
+    try:
         response = client.chat.completions.create(
             model="qwen3.6-plus",
             temperature=0,
@@ -34,9 +48,7 @@ Rules:
 - Return ONLY the translation.
 - No explanations.
 - No commentary.
-- No notes.
-- Preserve formatting exactly.
-- If the text is already in the target language, return it unchanged.
+- Preserve formatting.
 """
                 },
                 {
@@ -53,6 +65,5 @@ Rules:
 
         return result
 
-    except Exception as e:
-        print("Translation error:", e)
+    except Exception:
         return text

@@ -540,13 +540,14 @@ if os.path.exists(portfolio_file):
         portfolio_text = f.read()
     if language == "English":
         st.text_area(
-            "",
-            portfolio_text,
-            height=400
-        )
+    "Portfolio Report",
+    portfolio_text,
+    height=400,
+    label_visibility="collapsed"
+)
     else:
         st.text_area(
-            "",
+            "Portfolio Report",
             translate_text(
                 portfolio_text,
                 language
@@ -608,9 +609,10 @@ if latest_brief:
 
     if language == "English":
         st.text_area(
-            "",
+            "Market Brief",
             brief,
-            height=400
+            height=400,
+            label_visibility="collapsed"
         )
     else:
         st.text_area(
