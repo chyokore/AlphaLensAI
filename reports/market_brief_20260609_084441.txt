@@ -1,0 +1,31 @@
+**AlphaLens AI | Daily Market Brief**
+
+**1. Market Mood**
+Cautiously Bullish
+
+**2. Confidence Score**
+Confidence Score: 72/100
+
+**3. Top Opportunity**
+AI & DePIN infrastructure protocols demonstrating sustained on-chain revenue growth, positive net inflows from institutional wallets, and expanding real-world utility.
+
+**4. Highest Risk Asset**
+Low-float meme coins and highly leveraged perpetual positions vulnerable to rapid liquidity drains and funding rate reversals.
+
+**5. Market Narrative**
+• **Bitcoin Trend:** BTC maintains a constructive higher-low structure, consolidating within a defined range. Spot ETF flows remain net-positive but are decelerating; a decisive volume-backed break above key resistance is required to confirm trend continuation.
+• **Altcoin Trend:** Capital is rotating from pure speculation to fundamentals. Yield-bearing protocols, AI compute networks, and RWA infrastructure are outperforming, supported by rising protocol fees and developer activity.
+• **Liquidity Conditions:** Aggregate stablecoin market cap is flat-to-slightly expanding. Perpetual funding rates hover near neutral, indicating balanced spot/derivatives positioning. Macro liquidity remains sensitive to upcoming central bank guidance and DXY volatility.
+• **Market Structure:** Range-bound with improving internal breadth. Open interest is elevated but not overheated. Key support levels are actively defended; overhead supply remains intact until a macro catalyst triggers expansion.
+
+**6. Key Risk**
+Unexpected macro liquidity contraction (hawkish policy pivot or sharp DXY appreciation) triggering a leveraged long squeeze and invalidation of BTC’s higher-low structure.
+
+**7. Actionable Insight**
+Scale into high-conviction, cash-flow-positive infrastructure names on 5–10% pullbacks with confirmed volume. Maintain a 15–20% stablecoin reserve for volatility harvesting and tactical rebalancing. Hedge directional exposure via BTC protective options or delta-neutral yield strategies. Avoid low-liquidity momentum assets lacking on-chain validation.
+
+**8. One-Sentence Executive Summary**
+The market is consolidating with a constructive bias, warranting selective accumulation in fundamentally-driven infrastructure assets while maintaining disciplined risk controls against macro-driven volatility.
+
+**9. Final Market Stance**
+Selective Buy
