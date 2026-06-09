@@ -268,9 +268,9 @@ if not df.empty:
 
     if len(open_trades) > 0:
         st.dataframe(
-            open_trades,
-            use_container_width=True
-        )
+    df,
+    width="stretch"
+)
     else:
         st.success(
     "No active signals."
@@ -444,9 +444,9 @@ f"📡 {T['signal_history']}"
 
 if not df.empty:
     st.dataframe(
-        df,
-        use_container_width=True
-    )
+    df,
+    width="stretch"
+)
 
 
 # =========================
@@ -519,7 +519,7 @@ if not df.empty:
                     "pnl_percent"
                 ]
             ],
-            use_container_width=True
+            width="stretch"
         )
 # =========================
 
@@ -557,10 +557,11 @@ if os.path.exists(portfolio_file):
 else:
     # file missing: show empty area or message
     st.text_area(
-        "",
-        "",
-        height=400
-    )
+    "Portfolio Report",
+    "Portfolio report not available",
+    height=400,
+    label_visibility="collapsed"
+)
 
 
 # =========================
@@ -616,7 +617,7 @@ if latest_brief:
         )
     else:
         st.text_area(
-            "",
+            "Market Brief",
             translate_text(
                 brief,
                 language
