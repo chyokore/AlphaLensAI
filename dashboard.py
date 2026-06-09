@@ -56,14 +56,21 @@ st.markdown("---")
 # AI ACTION CENTER
 # =========================
 
+import csv
+from datetime import datetime
+
 st.markdown("---")
 st.header("⚡ AI Action Center")
 
-col1, col2, col3 = st.columns(3)
+# =========================
+# ACTION BUTTONS
+# =========================
+
+col1, col2, col3, col4 = st.columns(4)
 
 with col1:
 
-    if st.button("📊 Generate Portfolio Analysis"):
+    if st.button("📊 Portfolio Analysis"):
 
         with st.spinner(
             "Generating portfolio analysis..."
@@ -79,7 +86,7 @@ with col1:
 
 with col2:
 
-    if st.button("📰 Generate Market Brief"):
+    if st.button("📰 Market Brief"):
 
         with st.spinner(
             "Generating market brief..."
@@ -95,7 +102,7 @@ with col2:
 
 with col3:
 
-    if st.button("📈 Update Trade Results"):
+    if st.button("📈 Update Trades"):
 
         with st.spinner(
             "Updating trades..."
@@ -109,14 +116,12 @@ with col3:
             "Trades updated."
         )
 
-    if st.button("🔄 Refresh Dashboard"):
+with col4:
 
-        st.rerun()
-
-    if st.button("🤖 Generate New Signals"):
+    if st.button("🤖 Generate Signals"):
 
         with st.spinner(
-            "Generating signals..."
+            "Generating AI signals..."
         ):
 
             os.system(
@@ -126,6 +131,108 @@ with col3:
         st.success(
             "Signal generation completed."
         )
+
+# =========================
+# REFRESH
+# =========================
+
+if st.button("🔄 Refresh Dashboard"):
+
+    st.rerun()
+
+# =========================
+# PLACE NEW TRADE
+# =========================
+
+st.markdown("---")
+
+st.subheader("➕ Place New Trade")
+
+with st.form("place_trade_form"):
+
+    coin = st.text_input(
+        "Coin",
+        value="BTC"
+    )
+
+    signal = st.selectbox(
+        "Signal",
+        [
+            "BUY",
+            "REDUCE"
+        ]
+    )
+
+    confidence = st.slider(
+        "Confidence",
+        0,
+        100,
+        70
+    )
+
+    entry_price = st.number_input(
+        "Entry Price",
+        min_value=0.0,
+        step=0.0001
+    )
+
+    submit_trade = st.form_submit_button(
+        "Place Trade"
+    )
+
+    if submit_trade:
+
+        if not os.path.exists(
+            "signals.csv"
+        ):
+
+            with open(
+                "signals.csv",
+                "w",
+                newline="",
+                encoding="utf-8"
+            ) as f:
+
+                writer = csv.writer(f)
+
+                writer.writerow([
+                    "timestamp",
+                    "coin",
+                    "signal",
+                    "confidence",
+                    "entry_price",
+                    "exit_price",
+                    "pnl_percent",
+                    "status"
+                ])
+
+        with open(
+            "signals.csv",
+            "a",
+            newline="",
+            encoding="utf-8"
+        ) as f:
+
+            writer = csv.writer(f)
+
+            writer.writerow([
+                datetime.now().strftime(
+                    "%Y-%m-%d %H:%M:%S"
+                ),
+                coin.upper(),
+                signal,
+                confidence,
+                entry_price,
+                "",
+                "",
+                "OPEN"
+            ])
+
+        st.success(
+            f"✅ {coin.upper()} trade added successfully."
+        )
+
+        st.rerun()
 
 # =========================
 
