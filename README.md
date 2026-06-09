@@ -1,123 +1,284 @@
-# AlphaLens AI
+# 🚀 AlphaLens AI
 
-AlphaLens AI is a multilingual crypto intelligence platform built for the Bitget × Qwen Hackathon.
+## Multilingual AI-Powered Crypto Intelligence Platform
 
-The platform combines real-time market data, AI-powered analysis, portfolio intelligence, market narratives, and paper trading analytics to help traders make informed decisions while managing risk.
+AlphaLens AI is an AI-powered crypto intelligence platform built for the **Bitget AI Hackathon S1 2026**.
 
----
+The platform combines market intelligence, portfolio analytics, paper trading infrastructure, AI-generated market narratives, and multilingual accessibility into a unified decision-support system for crypto traders and investors.
 
-## Problem
-
-Crypto traders often rely on multiple tools for:
-
-- Market analysis
-- Portfolio monitoring
-- Trading signals
-- Risk management
-- Market news and narratives
-
-This fragmented workflow makes decision-making slower and less efficient.
-
-AlphaLens AI unifies these capabilities into a single AI-powered intelligence platform.
+Rather than forcing users to switch between multiple dashboards, news sources, sentiment trackers, and portfolio tools, AlphaLens transforms raw market data into actionable intelligence through Qwen AI.
 
 ---
 
-## Solution
+# 🎯 The Problem
 
-AlphaLens AI provides:
+Crypto traders often rely on fragmented workflows involving:
 
-- AI-generated trading signals
-- Confidence-scored market analysis
-- Portfolio intelligence
-- Daily market briefings
-- Paper trading analytics
-- Risk monitoring
+* Market analysis tools
+* Portfolio trackers
+* Trading signal providers
+* Risk management platforms
+* News aggregators
+* Sentiment monitoring services
 
-Using Qwen AI and Bitget market data, AlphaLens transforms raw market information into actionable insights.
+This creates information overload, slows decision-making, and increases the risk of poor trading outcomes.
+
+Most platforms display data.
+
+Very few help users understand what that data means.
 
 ---
 
-## Features
+# 💡 Our Solution
 
-### AI Trading Signals
+AlphaLens AI acts as an intelligence layer between market data and decision-making.
 
-- Real-time crypto market analysis
-- BUY / HOLD / REDUCE recommendations
-- AI confidence scores
-- Risk assessment
-- Multi-language support
+Using Qwen AI, the platform converts real-time market information into:
 
-### Portfolio Intelligence
+* AI-generated trading signals
+* Confidence scores
+* Portfolio diagnostics
+* Risk assessments
+* Market narratives
+* Daily market briefings
+* Paper trading analytics
 
-- Portfolio Health Score
-- Portfolio Risk Score
-- Diversification Analysis
-- Recommended Allocations
-- Opportunity Watchlists
-- Executive Portfolio Summaries
+The result is a unified system that helps users move from observation to action.
 
-### Daily Market Briefs
+---
 
-- Market Mood Analysis
-- Market Narratives
-- Risk Monitoring
-- Executive Summaries
-- Actionable Trading Insights
+# 🌟 Why AlphaLens AI Matters
 
-### Paper Trading Analytics
+AlphaLens AI is designed to bridge the gap between raw market data and actionable decision-making.
 
-- Trade Tracking
-- Win Rate Analysis
-- Portfolio PnL Monitoring
-- Risk Ratings
-- Portfolio Health Scoring
-- Trade Recommendations
+While most traders switch between multiple tools for market analysis, sentiment tracking, portfolio monitoring, and risk assessment, AlphaLens unifies these workflows into a single AI-powered intelligence platform.
+
+By combining Qwen AI, Bitget market data, portfolio analytics, paper trading infrastructure, and multilingual accessibility, AlphaLens makes advanced crypto intelligence accessible to a global audience.
+
+---
+
+# 🤖 How Qwen AI Powers AlphaLens
+
+Qwen AI serves as the reasoning engine behind AlphaLens.
+
+Instead of simply displaying market data, AlphaLens uses Qwen AI to:
+
+* Interpret market conditions
+* Generate trading signals
+* Produce confidence scores
+* Analyze portfolio risk
+* Generate market narratives
+* Create institutional-style market briefs
+* Recommend portfolio adjustments
+* Deliver multilingual experiences
+
+This transforms AlphaLens from a dashboard into an intelligent crypto decision-support platform.
+
+---
+
+# ✨ Core Features
+
+## 🤖 AI Trading Signals
+
+Generate actionable market insights using AI.
+
+Features:
+
+* BUY / REDUCE Recommendations
+* Confidence Scores (0–100)
+* Market Sentiment Analysis
+* Risk Assessment
+* Signal Logging
+* Signal History Tracking
+
+---
+
+## 📊 Portfolio Intelligence
+
+Analyze portfolio strength, diversification, and risk.
+
+Outputs include:
+
+* Portfolio Health Score
+* Portfolio Risk Score
+* Diversification Analysis
+* Recommended Allocation
+* Opportunity Watchlist
+* Market Narrative
+* Executive Summary
+* Final Trading Stance
+
+---
+
+## 📰 Daily Market Brief Engine
+
+Generate institutional-style market reports.
+
+Includes:
+
+* Market Mood
+* Confidence Score
+* Top Opportunity
+* Highest Risk Asset
+* Market Narrative
+* Key Risk
+* Actionable Insight
+* Executive Summary
+* Final Market Stance
+
+---
+
+## 📈 Paper Trading Analytics
+
+Track trading performance without risking capital.
+
+Features:
+
+* Trade Logging
+* Automated Trade Tracking
+* Win Rate Analysis
+* Portfolio PnL Monitoring
+* Risk Ratings
+* Trade Leaderboards
+* Performance Metrics
+* Trade Reviews
+
+---
+
+## 🌍 Market Intelligence
+
+Monitor market conditions in real time.
+
+Includes:
+
+* Trending Coins
+* Global Market Overview
+* BTC Dominance
+* Market Capitalization
+* Trading Volume
+* Fear & Greed Index
+* Market Sentiment Monitoring
+
+---
+
+## 🌐 Multilingual Accessibility
+
+AlphaLens AI supports:
+
+* English
+* Chinese
+* Portuguese
+* Spanish
+* French
+
+Users can switch languages directly from the dashboard.
+
+---
+
+# 🖥️ Dashboard Features
+
+The Streamlit dashboard provides:
+
+### Platform Overview
+
+Displays:
+
+* Total Signals
+* Closed Trades
+* Open Trades
+* Win Rate
+* Average Confidence
+* Health Score
+
+### Active Signals
+
+Track currently open AI-generated signals.
+
+### Signal History
+
+Review historical signal activity.
+
+### Trade Performance
+
+Analyze paper trading outcomes.
+
+### Trade Leaderboard
+
+Rank trades by profitability.
 
 ### Market Intelligence
 
-- Bitget Market Data Integration
-- Fear & Greed Index Monitoring
-- Trending Asset Tracking
-- Global Market Overview
+* Trending Coins
+* Global Market Overview
+* Fear & Greed Index
+
+### Portfolio Intelligence
+
+View AI-generated portfolio diagnostics.
+
+### Daily Market Brief
+
+Access institutional-style market commentary generated by Qwen AI.
 
 ---
 
-## Architecture
+# 🏗️ System Architecture
 
-### Perception Layer
+## Perception Layer
 
-- Bitget Market Data
-- CoinGecko Market Intelligence
-- Fear & Greed Index
+Collects market information from:
 
-### Decision Layer
+* Bitget Market Data
+* CoinGecko API
+* Fear & Greed Index
 
-- Qwen AI Analysis
-- Signal Generation
-- Risk Scoring
-- Portfolio Evaluation
+↓
 
-### Execution Layer
+## Intelligence Layer
 
-- Signal Logging
-- Paper Trading Engine
-- Portfolio Tracking
+Processes information using:
 
-### Risk Management Layer
+* Qwen AI
+* Market Analysis Engine
+* Portfolio Intelligence Engine
+* Risk Assessment Engine
 
-- Confidence Scoring
-- Portfolio Health Scores
-- Risk Ratings
-- Diversification Analysis
+↓
+
+## Decision Layer
+
+Generates:
+
+* Trading Signals
+* Confidence Scores
+* Market Narratives
+* Portfolio Recommendations
+
+↓
+
+## Analytics Layer
+
+Produces:
+
+* Trade Reviews
+* Portfolio Reports
+* Market Briefs
+* Performance Metrics
+
+↓
+
+## Presentation Layer
+
+Visualizes insights through the AlphaLens Dashboard.
 
 ---
 
-## Workflow
+# 🔄 Workflow
 
 ```text
 Market Data
      ↓
-AlphaLens Engine
+Market Intelligence Layer
      ↓
 Qwen AI Analysis
      ↓
@@ -128,141 +289,194 @@ Portfolio Intelligence
 Paper Trading Analytics
      ↓
 Report Generation
+     ↓
+Dashboard Visualization
 ```
 
 ---
 
-## Tech Stack
+# ⚔️ Competitive Advantage
 
-- Python
-- Qwen AI
-- Bitget Market Data API
-- CoinGecko API
-- GitHub
+Unlike traditional crypto dashboards that focus solely on visualization, AlphaLens combines:
+
+* Market Intelligence
+* AI Reasoning
+* Portfolio Analytics
+* Paper Trading Infrastructure
+* Risk Management
+* Multilingual Accessibility
+
+into a single platform.
+
+The result is an end-to-end workflow that helps users move from market observation to informed decision-making without leaving the platform.
 
 ---
 
-## Project Structure
+# 🛠️ Technology Stack
+
+### AI Layer
+
+* Qwen AI
+
+### Backend
+
+* Python
+
+### Dashboard
+
+* Streamlit
+
+### Market Data
+
+* Bitget Market Data
+* CoinGecko API
+
+### Analytics
+
+* Pandas
+
+### Deployment
+
+* GitHub
+* MuleRun
+
+---
+
+# 📁 Project Structure
 
 ```text
 AlphaLensAI/
 
-app.py
-portfolio.py
-market_brief.py
-paper_trading.py
-trade_journal.py
+├── app.py
+├── dashboard.py
+├── portfolio.py
+├── market_brief.py
+├── trade_tracker.py
 
-bitget_data.py
-bitget_market.py
-signal_logger.py
+├── market_data.py
+├── bitget_data.py
+├── translator.py
+├── translations.py
 
-signals.csv
-paper_trades.csv
+├── signals.csv
 
-reports/
-├── portfolio_report.txt
-├── market_brief_*.txt
-├── report_*.txt
-└── paper_trading_report.txt
+├── reports/
+│   ├── portfolio_report.txt
+│   ├── market_brief_*.txt
+│   ├── leaderboard.txt
+│   ├── portfolio_metrics.txt
+│   ├── trade_review.txt
+│   └── paper_trading_report.txt
+
+├── requirements.txt
+└── README.md
 ```
 
 ---
 
-## How To Run
+# ⚙️ Installation
 
-### AI Trading Signals
+Clone the repository:
+
+```bash
+git clone <repository-url>
+cd AlphaLensAI
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Create a `.env` file:
+
+```env
+QWEN_API_KEY=your_api_key
+```
+
+---
+
+# ▶️ Usage
+
+Generate trading signals:
 
 ```bash
 python app.py
 ```
 
-### Portfolio Intelligence
+Generate portfolio intelligence:
 
 ```bash
 python portfolio.py
 ```
 
-### Daily Market Brief
+Generate daily market brief:
 
 ```bash
 python market_brief.py
 ```
 
-### Paper Trading Dashboard
+Update trade outcomes:
 
 ```bash
-python paper_trading.py
+python trade_tracker.py
 ```
 
-### Trade Journal
+Launch dashboard:
 
 ```bash
-python trade_journal.py
+python -m streamlit run dashboard.py
 ```
 
 ---
 
-## Verifiable Usage Evidence
+# 📊 Verifiable Usage Evidence
 
-AlphaLens generates:
+AlphaLens automatically generates:
 
-- Signal history logs (`signals.csv`)
-- Paper trading records (`paper_trades.csv`)
-- Portfolio reports
-- Market brief reports
-- AI analysis reports
+* Trading Signal Logs
+* Portfolio Reports
+* Market Brief Reports
+* Trade Reviews
+* Portfolio Metrics
+* Trade Leaderboards
+* Paper Trading Reports
 
-These provide verifiable evidence of system usage and simulated trading activity.
-
----
-
-## Current Capabilities
-
-### AlphaLens AI Core
-
-- Market Sentiment Analysis
-- Trading Signals
-- Confidence Scores
-- Entry, Stop Loss, and Take Profit Suggestions
-- AI Market Narratives
-
-### Portfolio Intelligence
-
-- Health Scores
-- Risk Scores
-- Allocation Recommendations
-- Opportunity Watchlists
-- Executive Summaries
-
-### Paper Trading Analytics
-
-- Win Rate Tracking
-- Portfolio PnL Analysis
-- Risk Ratings
-- Trade Performance Monitoring
-
-### Market Brief Engine
-
-- Daily Market Mood
-- Confidence Scores
-- Top Opportunities
-- Market Narratives
-- Executive Summaries
+These artifacts provide verifiable evidence of AI usage, market analysis, and trading performance.
 
 ---
 
-## Future Roadmap
+# 📈 Current Results
 
-- GetClaw deployment
-- Live trading integration
-- Strategy automation
-- Advanced risk engine
-- Multi-asset support
-- Agent-to-agent collaboration
+AlphaLens currently demonstrates:
+
+* 12 Completed Paper Trades
+* 66.67% Win Rate
+* Portfolio Intelligence Engine
+* Daily Market Brief Engine
+* Multi-Language Dashboard
+* AI Trading Signal Generation
+* Trade Tracking & Analytics
+* Market Intelligence Dashboard
 
 ---
 
-## Built For
+# 🚀 Future Roadmap
 
-**Bitget × Qwen Hackathon 2026**
+* Live Trading Integration
+* Advanced Portfolio Optimization
+* Strategy Automation
+* Agent-Based Research Workflows
+* Multi-Asset Expansion
+* Institutional Analytics Suite
+
+---
+
+# 🏆 Built For
+
+**Bitget AI Hackathon S1 2026**
+
+Builder: **Chinyere Okore**
+
+Bitget UID: **7628782810**

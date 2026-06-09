@@ -1,85 +1,83 @@
-import os
-from dotenv import load_dotenv
-from openai import OpenAI
+import requests
 
 # =========================
-
-# LOAD ENV VARIABLES
-
+# TRENDING COINS
 # =========================
 
-load_dotenv()
+def get_trending_coins():
+    url = "https://api.coingecko.com/api/v3/search/trending"
 
-client = OpenAI(
-api_key=os.getenv("QWEN_API_KEY"),
-base_url="https://hackathon.bitgetops.com/v1"
-)
+    try:
+        response = requests.get(
+            url,
+            timeout=10
+        )
+
+        if response.status_code != 200:
+            return []
+
+        data = response.json()
+
+        return [
+            coin["item"]["symbol"].upper()
+            for coin in data["coins"][:5]
+        ]
+
+    except Exception:
+        return []
 
 # =========================
-
-# ALPHALENS MARKET BRIEF
-
+# GLOBAL MARKET DATA
 # =========================
 
-print("\n====================")
-print(" AlphaLens AI Market Brief")
-print("====================\n")
+def get_global_market():
+    url = "https://api.coingecko.com/api/v3/global"
 
-prompt = """
-Act as a professional crypto market strategist.
+    try:
+        response = requests.get(
+            url,
+            timeout=10
+        )
 
-Generate an AlphaLens Daily Market Brief.
+        if response.status_code != 200:
+            return None
 
-Use EXACTLY the following format:
+        data = response.json()["data"]
 
-1. Market Mood
+        return {
+            "market_cap": data["total_market_cap"]["usd"],
+            "volume": data["total_volume"]["usd"],
+            "btc_dominance": data["market_cap_percentage"]["btc"]
+        }
 
-2. Confidence Score (0-100)
+    except Exception:
+        return None
 
-3. Top Opportunity
+# =========================
+# FEAR & GREED INDEX
+# =========================
 
-4. Highest Risk Asset
+def get_fear_greed():
+    url = "https://api.alternative.me/fng/"
 
-5. Market Narrative
+    try:
+        response = requests.get(
+            url,
+            timeout=10
+        )
 
-6. Key Risk
+        data = response.json()
 
-7. Actionable Insight
+        value = data["data"][0]["value"]
 
-8. Executive Summary
+        classification = (
+            data["data"][0]
+            ["value_classification"]
+        )
 
-Rules:
+        return value, classification
 
-* Keep each section concise.
-* Do not add extra sections.
-* Do not change the order.
-* Use professional language suitable for traders.
-* Keep the entire report under 250 words.
-  """
-
-print("Generating market brief...\n")
-
-response = client.chat.completions.create(
-model="qwen3.6-plus",
-messages=[
-{
-"role": "user",
-"content": prompt
-}
-]
-)
-
-brief = response.choices[0].message.content
-
-print("====================")
-print(" AlphaLens Daily Brief")
-print("====================\n")
-
-print(brief)
-
-# Save report
-
-with open("market_brief.txt", "w", encoding="utf-8") as file:
-    file.write(brief)
-
-print("\nMarket brief saved to market_brief.txt")
+    except Exception:
+        return None, "Unavailable"
+    
+  
