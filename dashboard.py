@@ -82,8 +82,8 @@ with col1:
         ):
 
             os.system(
-                "python portfolio.py"
-            )
+    f"{sys.executable} portfolio.py"
+)
 
         st.success(
             "Portfolio report updated."
@@ -95,43 +95,43 @@ with col2:
 
     if st.button("📰 Market Brief"):
 
-    with st.spinner(
-        "Generating market brief..."
-    ):
+        with st.spinner(
+            "Generating market brief..."
+        ):
 
-        os.system(
-            f"{sys.executable} market_brief.py"
+            os.system(
+                f"{sys.executable} market_brief.py"
+            )
+
+        st.success(
+            "Market brief updated."
         )
 
-    st.success(
-        "Market brief updated."
-    )
-
-    st.rerun()
+        st.rerun()
 
 with col3:
 
     if st.button("📈 Update Trades"):
 
-    with st.spinner(
-        "Updating trades..."
-    ):
+        with st.spinner(
+            "Updating trades..."
+        ):
 
-        os.system(
-            f"{sys.executable} trade_tracker.py"
+            os.system(
+                f"{sys.executable} trade_tracker.py"
+            )
+
+        st.success(
+            "Trades updated."
         )
 
-    st.success(
-        "Trades updated."
-    )
-
-    st.rerun()
+        st.rerun()
 
 with col4:
 
     if st.button("🤖 Generate Signal"):
 
-        st.write("Generate Signal button clicked")
+        
 
         with st.spinner(
             "Generating AI signal..."
@@ -275,11 +275,8 @@ if os.path.exists(
         df = pd.DataFrame()
 
 # =========================
-
 # PLATFORM OVERVIEW
-
-# ================
-=========
+# =========================
 
 st.header(f"📊 {T['overview']}")
 
