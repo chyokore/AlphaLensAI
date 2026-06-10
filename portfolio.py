@@ -239,45 +239,105 @@ if fear_value:
 # PORTFOLIO INPUT
 # =========================
 
-coins = input(
-    "Enter coins separated by commas "
-    "(bitcoin,ethereum,solana,sui,xrp): "
-).strip()
-
-if not coins:
-    print(
-        "❌ No coins entered."
-    )
-    exit()
-
-coin_list = [
-    coin.strip().lower()
-    for coin in coins.split(",")
-    if coin.strip()
-]
+import pandas as pd
 
 portfolio_prompt_data = []
 
 print("\n📊 Portfolio Summary")
 print("----------------------------")
 
-for coin in coin_list:
-    price = get_price(coin)
+if not os.path.exists("signals.csv"):
 
-    if price:
-        print(
-            f"{coin.upper():<12} "
-            f"${price:,.4f}"
+    report = """
+No active portfolio positions found.
+
+Generate and place trades from the
+dashboard before running Portfolio
+Analysis.
+"""
+
+    os.makedirs(
+        "reports",
+        exist_ok=True
+    )
+
+    with open(
+        "reports/portfolio_report.txt",
+        "w",
+        encoding="utf-8"
+    ) as f:
+
+        f.write(report)
+
+    print(report)
+
+    exit()
+
+df = pd.read_csv("signals.csv")
+
+open_trades = df[
+    df["status"] == "OPEN"
+]
+
+if len(open_trades) == 0:
+
+    report = """
+No active portfolio positions found.
+
+Generate and place trades from the
+dashboard before running Portfolio
+Analysis.
+"""
+
+    os.makedirs(
+        "reports",
+        exist_ok=True
+    )
+
+    with open(
+        "reports/portfolio_report.txt",
+        "w",
+        encoding="utf-8"
+    ) as f:
+
+        f.write(report)
+
+    print(report)
+
+    exit()
+
+unique_coins = (
+    open_trades["coin"]
+    .dropna()
+    .unique()
+    .tolist()
+)
+
+for coin in unique_coins:
+
+    symbol = coin.upper()
+
+    try:
+
+        price = get_bitget_price(
+            f"{symbol}USDT"
         )
 
-        portfolio_prompt_data.append(
-            f"{coin.upper()} : "
-            f"${price:,.4f}"
-        )
+        if price:
 
-    else:
+            print(
+                f"{symbol:<12}"
+                f"${price:,.4f}"
+            )
+
+            portfolio_prompt_data.append(
+                f"{symbol}: ${price:,.4f}"
+            )
+
+    except Exception:
+
         print(
-            f"{coin.upper():<12} "
+            f"{symbol:<12}"
             f"Price unavailable"
         )
 

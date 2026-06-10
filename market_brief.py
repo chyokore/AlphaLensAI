@@ -3,6 +3,14 @@ from datetime import datetime
 from dotenv import load_dotenv
 from openai import OpenAI
 
+import pandas as pd
+
+from market_data import (
+    get_trending_coins,
+    get_global_market,
+    get_fear_greed
+)
+
 # =========================
 # LOAD ENV VARIABLES
 # =========================
@@ -22,13 +30,88 @@ print("\n====================================")
 print("      AlphaLens Market Brief")
 print("====================================\n")
 
-prompt = """
+# =========================
+# MARKET CONTEXT
+# =========================
+
+portfolio_coins = []
+
+if os.path.exists("signals.csv"):
+
+    try:
+
+        df = pd.read_csv(
+            "signals.csv"
+        )
+
+        open_trades = df[
+            df["status"] == "OPEN"
+        ]
+
+        portfolio_coins = (
+            open_trades["coin"]
+            .dropna()
+            .unique()
+            .tolist()
+        )
+
+    except Exception:
+
+        portfolio_coins = []
+
+trending = get_trending_coins()
+
+market = get_global_market()
+
+fear_value, fear_classification = (
+    get_fear_greed()
+)
+
+market_cap = "Unknown"
+volume = "Unknown"
+btc_dom = "Unknown"
+
+if market:
+
+    market_cap = (
+        f"${market['market_cap']/1_000_000_000_000:.2f}T"
+    )
+
+    volume = (
+        f"${market['volume']/1_000_000_000:.2f}B"
+    )
+
+    btc_dom = (
+        f"{market['btc_dominance']:.2f}%"
+    )
+
+prompt = f"""
 You are AlphaLens AI.
 
-You are an institutional-grade crypto
-market strategist.
+You are an institutional-grade
+crypto strategist.
 
-Generate a professional Daily Market Brief.
+Current Portfolio:
+
+{', '.join(portfolio_coins) if portfolio_coins else 'No Open Positions'}
+
+Trending Coins:
+
+{', '.join(trending) if trending else 'Unavailable'}
+
+Market Cap:
+{market_cap}
+
+24h Volume:
+{volume}
+
+BTC Dominance:
+{btc_dom}
+
+Fear & Greed:
+{fear_classification}
+
+Generate a Daily Market Brief.
 
 Provide:
 
@@ -36,16 +119,16 @@ Provide:
 
 Choose one:
 
-* Strongly Bullish
-* Bullish
-* Neutral
-* Cautiously Bullish
-* Cautiously Bearish
-* Bearish
+Strongly Bullish
+Bullish
+Neutral
+Cautiously Bullish
+Cautiously Bearish
+Bearish
 
 2. Confidence Score
 
-Format exactly as:
+Format exactly:
 
 Confidence Score: XX/100
 
@@ -57,16 +140,16 @@ Confidence Score: XX/100
 
 Cover:
 
-* Bitcoin trend
-* Altcoin trend
-* Liquidity conditions
-* Market structure
+• Bitcoin Trend
+• Altcoin Trend
+• Liquidity Conditions
+• Market Structure
 
 6. Key Risk
 
 7. Actionable Insight
 
-8. One-Sentence Executive Summary
+8. Executive Summary
 
 9. Final Market Stance
 
@@ -79,10 +162,10 @@ Hold
 Reduce Risk
 Defensive
 
-Keep the report concise,
-professional,
-institutional-grade,
-and under 500 words.
+Reference the portfolio holdings
+when relevant.
+
+Keep under 500 words.
 """
 
 print("🤖 Generating AI Market Brief...\n")

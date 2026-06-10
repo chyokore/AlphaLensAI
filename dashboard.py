@@ -667,33 +667,40 @@ f"💼 {T['portfolio']}"
 portfolio_file = "reports/portfolio_report.txt"
 
 if os.path.exists(portfolio_file):
-    with open(portfolio_file, "r", encoding="utf-8") as f:
-        portfolio_text = f.read()
-    if language == "English":
-        st.text_area(
-    "Portfolio Report",
-    portfolio_text,
-    height=400,
-    label_visibility="collapsed"
-)
-    else:
-        st.text_area(
-            "Portfolio Report",
-            translate_text(
-                portfolio_text,
-                language
-            ),
-            height=400
-        )
-else:
-    # file missing: show empty area or message
-    st.text_area(
-    "Portfolio Report",
-    "Portfolio report not available",
-    height=400,
-    label_visibility="collapsed"
-)
 
+    with open(
+        portfolio_file,
+        "r",
+        encoding="utf-8"
+    ) as f:
+
+        portfolio_text = f.read()
+
+    display_text = (
+        portfolio_text
+        if language == "English"
+        else translate_text(
+            portfolio_text,
+            language
+        )
+    )
+
+    st.text_area(
+        "Portfolio Report",
+        value=display_text,
+        height=400,
+        key=f"portfolio_{os.path.getmtime(portfolio_file)}",
+        label_visibility="collapsed"
+    )
+
+else:
+
+    st.text_area(
+        "Portfolio Report",
+        value="Portfolio report not available",
+        height=400,
+        label_visibility="collapsed"
+    )
 
 # =========================
 # MARKET BRIEF
@@ -737,29 +744,29 @@ if latest_brief:
     ) as f:
 
         brief = f.read()
-    
 
-    if language == "English":
-        st.text_area(
-            "Market Brief",
+    display_brief = (
+        brief
+        if language == "English"
+        else translate_text(
             brief,
-            height=400,
-            label_visibility="collapsed"
+            language
         )
-    else:
-        st.text_area(
-            "Market Brief",
-            translate_text(
-                brief,
-                language
-            ),
-            height=400
-        )
+    )
+
+    st.text_area(
+        "Market Brief",
+        value=display_brief,
+        height=400,
+        key=f"brief_{os.path.getmtime(latest_brief)}",
+        label_visibility="collapsed"
+    )
+
 else:
+
     st.info(
         "Run market_brief.py first."
     )
-
 # =========================
 
 # SUMMARY

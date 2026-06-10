@@ -1,24 +1,6 @@
-**1. Portfolio Health Score:** 64/100
-**2. Portfolio Risk Score:** 72/100 (Elevated)
-**3. Diversification Score:** 46/100 (Overweight L1s, zero stable/sector hedge)
-**4. Market Sentiment:** Risk-Off / Extreme Fear
-**5. Strongest Asset:** Bitcoin (BTC) – Institutional liquidity anchor, relative strength intact
-**6. Highest Risk Asset:** Sui (SUI) – High beta, thin liquidity, vulnerable to altcoin capitulation
-**7. Buy / Hold / Reduce:**
-• BTC: Selective Buy (scale at $58K–$60.5K)
-• ETH: Hold (await ETF flow normalization & L2 catalyst)
-• SOL: Hold (ecosystem strength, but respect $60 support)
-• XRP: Hold (range-bound; cut if closes below $1.00)
-• SUI: Reduce (trim 50% into bounces, reallocate defensively)
-**8. Recommended Allocation:** BTC 45% | ETH 20% | SOL 10% | XRP 10% | SUI 5% | Stablecoins 10%
-**9. Opportunity Watchlist:** ZEC (privacy/sovereignty rotation), H (DeFi infra momentum), PENGU (high-volatility tactical only). KONET & SAHARA require micro-position sizing and strict stop management.
-**10. Market Narrative:** Bitcoin dominance cycle is accelerating. Retail capitulation coincides with institutional bid absorption. Altcoins face a liquidity vacuum as risk-off macro conditions drain speculative capital. Declining 24h volume confirms distribution/consolidation phase.
-**11. Risk Management Advice:** 
-• Maintain 10–15% stablecoin dry powder for volatility harvesting
-• Eliminate leverage; implement trailing stops on alt exposure
-• Use 3-tranche scaling (25/35/40%) for any new entries
-• Hedge portfolio beta via BTC protective puts or stable yield if AUM >$50K
-• Watch $2.1T total market cap; break below triggers accelerated alt bleed
-**12. AI Confidence Score:** 76/100
-**13. Executive Summary:** The portfolio is fundamentally anchored by BTC but structurally exposed to high-beta L1s during a liquidity-constrained, risk-off regime. Extreme Fear signals capitulation, not reversal. Preserve capital by trimming speculative alt exposure, increasing stable reserves, and deploying only at confirmed institutional support zones. Rebalance toward quality, enforce strict risk parameters, and prepare for Q1 regime shifts.
-**14. Final Trading Stance:** Defensive
+
+No active portfolio positions found.
+
+Generate and place trades from the
+dashboard before running Portfolio
+Analysis.
