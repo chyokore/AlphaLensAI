@@ -117,8 +117,8 @@ with col3:
         ):
 
             os.system(
-                "python trade_tracker.py"
-            )
+    f"{sys.executable} trade_tracker.py"
+)
 
         st.success(
             "Trades updated."
@@ -219,13 +219,17 @@ if pending:
                 entry_price=pending["entry_price"]
             )
 
-            os.system(
-                "python portfolio.py"
-            )
+           import sys
 
-            os.system(
-                "python market_brief.py"
-            )
+os.system(
+    f"{sys.executable} portfolio.py"
+)
+
+          import sys
+
+os.system(
+    f"{sys.executable} market_brief.py"
+)
 
             del st.session_state[
                 "pending_signal"
@@ -400,7 +404,7 @@ if not df.empty:
 
         st.dataframe(
             open_trades,
-            use_container_width=True
+            width="stretch"
         )
 
     else:
