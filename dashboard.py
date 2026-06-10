@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
-import os
+import os   
+import sys
 
 from signal_engine import (
     get_best_opportunity
@@ -94,37 +95,37 @@ with col2:
 
     if st.button("📰 Market Brief"):
 
-        with st.spinner(
-            "Generating market brief..."
-        ):
+    with st.spinner(
+        "Generating market brief..."
+    ):
 
-            os.system(
-                "python market_brief.py"
-            )
-
-        st.success(
-            "Market brief updated."
+        os.system(
+            f"{sys.executable} market_brief.py"
         )
 
-        st.rerun()
+    st.success(
+        "Market brief updated."
+    )
+
+    st.rerun()
 
 with col3:
 
     if st.button("📈 Update Trades"):
 
-        with st.spinner(
-            "Updating trades..."
-        ):
+    with st.spinner(
+        "Updating trades..."
+    ):
 
-            os.system(
-    f"{sys.executable} trade_tracker.py"
-)
-
-        st.success(
-            "Trades updated."
+        os.system(
+            f"{sys.executable} trade_tracker.py"
         )
 
-        st.rerun()
+    st.success(
+        "Trades updated."
+    )
+
+    st.rerun()
 
 with col4:
 
@@ -208,38 +209,34 @@ if pending:
 
     with col1:
 
-        if st.button(
-            "✅ Place Order"
-        ):
+    if st.button(
+        "✅ Place Order"
+    ):
 
-            save_signal(
-                coin=pending["coin"],
-                signal=pending["signal"],
-                confidence=pending["confidence"],
-                entry_price=pending["entry_price"]
-            )
+        save_signal(
+            coin=pending["coin"],
+            signal=pending["signal"],
+            confidence=pending["confidence"],
+            entry_price=pending["entry_price"]
+        )
 
-           import sys
+        os.system(
+            f"{sys.executable} portfolio.py"
+        )
 
-os.system(
-    f"{sys.executable} portfolio.py"
-)
+        os.system(
+            f"{sys.executable} market_brief.py"
+        )
 
-          import sys
+        del st.session_state[
+            "pending_signal"
+        ]
 
-os.system(
-    f"{sys.executable} market_brief.py"
-)
+        st.success(
+            "Trade placed successfully."
+        )
 
-            del st.session_state[
-                "pending_signal"
-            ]
-
-            st.success(
-                "Trade placed successfully."
-            )
-
-            st.rerun()
+        st.rerun()
 
     with col2:
 
@@ -281,7 +278,8 @@ if os.path.exists(
 
 # PLATFORM OVERVIEW
 
-# =========================
+# ================
+=========
 
 st.header(f"📊 {T['overview']}")
 
