@@ -2,6 +2,10 @@ import streamlit as st
 import pandas as pd
 import os
 
+from signal_engine import (
+    get_best_opportunity
+)
+from signal_logger import save_signal
 from translations import TRANSLATIONS
 from translator import translate_text
 from market_data import (
@@ -59,12 +63,12 @@ st.markdown("---")
 import csv
 from datetime import datetime
 
-st.markdown("---")
-st.header("⚡ AI Action Center")
-
 # =========================
 # ACTION BUTTONS
 # =========================
+
+st.markdown("---")
+st.header("⚡ AI Action Center")
 
 col1, col2, col3, col4 = st.columns(4)
 
@@ -84,6 +88,8 @@ with col1:
             "Portfolio report updated."
         )
 
+        st.rerun()
+
 with col2:
 
     if st.button("📰 Market Brief"):
@@ -99,6 +105,8 @@ with col2:
         st.success(
             "Market brief updated."
         )
+
+        st.rerun()
 
 with col3:
 
@@ -116,138 +124,154 @@ with col3:
             "Trades updated."
         )
 
+        st.rerun()
+
 with col4:
 
-    if st.button("🤖 Generate Signals"):
+    if st.button("🤖 Generate Signal"):
+
+        st.write("Generate Signal button clicked")
 
         with st.spinner(
-            "Generating AI signals..."
+            "Generating AI signal..."
         ):
 
-            os.system(
-                "python app.py"
+            signal = (
+                get_best_opportunity()
             )
 
-        st.success(
-            "Signal generation completed."
-        )
-
-# =========================
-# REFRESH
-# =========================
-
-if st.button("🔄 Refresh Dashboard"):
-
-    st.rerun()
-
-# =========================
-# PLACE NEW TRADE
-# =========================
-
-st.markdown("---")
-
-st.subheader("➕ Place New Trade")
-
-with st.form("place_trade_form"):
-
-    coin = st.text_input(
-        "Coin",
-        value="BTC"
-    )
-
-    signal = st.selectbox(
-        "Signal",
-        [
-            "BUY",
-            "REDUCE"
-        ]
-    )
-
-    confidence = st.slider(
-        "Confidence",
-        0,
-        100,
-        70
-    )
-
-    entry_price = st.number_input(
-        "Entry Price",
-        min_value=0.0,
-        step=0.0001
-    )
-
-    submit_trade = st.form_submit_button(
-        "Place Trade"
-    )
-
-    if submit_trade:
-
-        if not os.path.exists(
-            "signals.csv"
-        ):
-
-            with open(
-                "signals.csv",
-                "w",
-                newline="",
-                encoding="utf-8"
-            ) as f:
-
-                writer = csv.writer(f)
-
-                writer.writerow([
-                    "timestamp",
-                    "coin",
-                    "signal",
-                    "confidence",
-                    "entry_price",
-                    "exit_price",
-                    "pnl_percent",
-                    "status"
-                ])
-
-        with open(
-            "signals.csv",
-            "a",
-            newline="",
-            encoding="utf-8"
-        ) as f:
-
-            writer = csv.writer(f)
-
-            writer.writerow([
-                datetime.now().strftime(
-                    "%Y-%m-%d %H:%M:%S"
-                ),
-                coin.upper(),
-                signal,
-                confidence,
-                entry_price,
-                "",
-                "",
-                "OPEN"
-            ])
+            st.session_state[
+                "pending_signal"
+            ] = signal
 
         st.success(
-            f"✅ {coin.upper()} trade added successfully."
+            "Signal generated."
         )
 
         st.rerun()
 
 # =========================
+# REFRESH
+# =========================
 
+if st.button(
+    "🔄 Refresh Dashboard"
+):
+
+    st.rerun()
+
+# =========================
+# PENDING TRADE
+# =========================
+
+st.markdown("---")
+
+st.header(
+    "📋 Pending Trade"
+)
+
+pending = st.session_state.get(
+    "pending_signal"
+)
+
+if pending:
+
+    col1, col2 = st.columns(2)
+
+    col1.metric(
+        "Coin",
+        pending["coin"]
+    )
+
+    col2.metric(
+        "Signal",
+        pending["signal"]
+    )
+
+    col1.metric(
+        "Confidence",
+        pending["confidence"]
+    )
+
+    col2.metric(
+        "Entry Price",
+        f"${pending['entry_price']:.4f}"
+    )
+
+    st.text_area(
+        "AI Report",
+        pending["report"],
+        height=150
+    )
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+
+        if st.button(
+            "✅ Place Order"
+        ):
+
+            save_signal(
+                coin=pending["coin"],
+                signal=pending["signal"],
+                confidence=pending["confidence"],
+                entry_price=pending["entry_price"]
+            )
+
+            os.system(
+                "python portfolio.py"
+            )
+
+            os.system(
+                "python market_brief.py"
+            )
+
+            del st.session_state[
+                "pending_signal"
+            ]
+
+            st.success(
+                "Trade placed successfully."
+            )
+
+            st.rerun()
+
+    with col2:
+
+        if st.button(
+            "🔄 Generate New Signal"
+        ):
+
+            st.session_state[
+                "pending_signal"
+            ] = (
+                get_best_opportunity()
+            )
+
+            st.rerun()
+
+else:
+
+    st.info(
+        "Generate a signal to create a pending trade."
+    )
+
+# =========================
 # LOAD SIGNALS
-
 # =========================
 
 df = pd.DataFrame()
 
-if os.path.exists("signals.csv"):
+if os.path.exists(
+    "signals.csv"
+):
     try:
-        df = pd.read_csv("signals.csv")
+        df = pd.read_csv(
+            "signals.csv"
+        )
     except Exception:
         df = pd.DataFrame()
-
 
 # =========================
 
@@ -359,9 +383,7 @@ else:
 
 
 # =========================
-
 # ACTIVE SIGNALS
-
 # =========================
 
 st.markdown("---")
@@ -369,21 +391,23 @@ st.markdown("---")
 st.header("🔴 Active Signals")
 
 if not df.empty:
+
     open_trades = df[
         df["status"] == "OPEN"
     ]
 
     if len(open_trades) > 0:
+
         st.dataframe(
-    df,
-    width="stretch"
-)
+            open_trades,
+            use_container_width=True
+        )
+
     else:
-        st.success(
-    "No active signals."
-)
 
-
+        st.info(
+            "No active signals."
+        )
 # =========================
 
 # CAPABILITIES

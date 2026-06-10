@@ -2,7 +2,7 @@
 
 ## Multilingual AI-Powered Crypto Intelligence Platform
 
-AlphaLens AI is an AI-powered crypto intelligence platform built for the **Bitget AI Hackathon S1 2026**.
+AlphaLens AI is an AI-powered crypto intelligence platform built for the **Bitget AI Base Camp Hackathon S1 2026**.
 
 The platform combines market intelligence, portfolio analytics, paper trading infrastructure, AI-generated market narratives, and multilingual accessibility into a unified decision-support system for crypto traders and investors.
 
@@ -338,7 +338,7 @@ The result is an end-to-end workflow that helps users move from market observati
 ### Deployment
 
 * GitHub
-* MuleRun
+* Streamlit
 
 ---
 
@@ -475,7 +475,7 @@ AlphaLens currently demonstrates:
 
 # 🏆 Built For
 
-**Bitget AI Hackathon S1 2026**
+**Bitget AI Base Camp Hackathon S1 2026**
 
 Builder: **Chinyere Okore**
 
