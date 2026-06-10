@@ -82,8 +82,8 @@ with col1:
         ):
 
             os.system(
-    f"{sys.executable} portfolio.py"
-)
+                f"{sys.executable} portfolio.py"
+            )
 
         st.success(
             "Portfolio report updated."
@@ -131,8 +131,6 @@ with col4:
 
     if st.button("🤖 Generate Signal"):
 
-        
-
         with st.spinner(
             "Generating AI signal..."
         ):
@@ -141,16 +139,23 @@ with col4:
                 get_best_opportunity()
             )
 
-            st.session_state[
-                "pending_signal"
-            ] = signal
+            if signal:
 
-        st.success(
-            "Signal generated."
-        )
+                st.session_state[
+                    "pending_signal"
+                ] = signal
 
-        st.rerun()
+                st.success(
+                    f"Signal generated for {signal['coin']}"
+                )
 
+                st.rerun()
+
+            else:
+
+                st.error(
+                    "Unable to generate signal."
+                )
 # =========================
 # REFRESH
 # =========================
@@ -177,66 +182,40 @@ pending = st.session_state.get(
 
 if pending:
 
-    col1, col2 = st.columns(2)
-
-    col1.metric(
-        "Coin",
-        pending["coin"]
-    )
-
-    col2.metric(
-        "Signal",
-        pending["signal"]
-    )
-
-    col1.metric(
-        "Confidence",
-        pending["confidence"]
-    )
-
-    col2.metric(
-        "Entry Price",
-        f"${pending['entry_price']:.4f}"
-    )
-
-    st.text_area(
-        "AI Report",
-        pending["report"],
-        height=150
-    )
+    ...
 
     col1, col2 = st.columns(2)
 
-with col1:
+    with col1:
 
-    if st.button(
-        "✅ Place Order"
-    ):
+        if st.button(
+            "✅ Place Order"
+        ):
 
-        save_signal(
-            coin=pending["coin"],
-            signal=pending["signal"],
-            confidence=pending["confidence"],
-            entry_price=pending["entry_price"]
-        )
+            save_signal(
+                coin=pending["coin"],
+                signal=pending["signal"],
+                confidence=pending["confidence"],
+                entry_price=pending["entry_price"]
+            )
 
-        os.system(
-            f"{sys.executable} portfolio.py"
-        )
+            os.system(
+                f"{sys.executable} portfolio.py"
+            )
 
-        os.system(
-            f"{sys.executable} market_brief.py"
-        )
+            os.system(
+                f"{sys.executable} market_brief.py"
+            )
 
-        del st.session_state[
-            "pending_signal"
-        ]
+            del st.session_state[
+                "pending_signal"
+            ]
 
-        st.success(
-            "Trade placed successfully."
-        )
+            st.success(
+                "Trade placed successfully."
+            )
 
-        st.rerun()
+            st.rerun()
 
     with col2:
 
