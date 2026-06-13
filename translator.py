@@ -21,6 +21,7 @@ if api_key:
         base_url="https://hackathon.bitgetops.com/v1"
     )
 
+@st.cache_data(ttl=3600)
 def translate_text(text, language):
 
     if language == "English":
@@ -33,6 +34,7 @@ def translate_text(text, language):
         return text
 
     try:
+
         response = client.chat.completions.create(
             model="qwen3.6-plus",
             temperature=0,
@@ -42,13 +44,15 @@ def translate_text(text, language):
                     "content": f"""
 You are a professional translator.
 
-Translate all text into {language}.
+Translate ALL text into {language}.
 
 Rules:
+- Translate every heading.
+- Translate every paragraph.
+- Preserve formatting.
 - Return ONLY the translation.
 - No explanations.
 - No commentary.
-- Preserve formatting.
 """
                 },
                 {
@@ -58,10 +62,20 @@ Rules:
             ]
         )
 
-        result = response.choices[0].message.content.strip()
+        result = (
+            response
+            .choices[0]
+            .message
+            .content
+            .strip()
+        )
 
         if "</think>" in result:
-            result = result.split("</think>")[-1].strip()
+            result = (
+                result
+                .split("</think>")[-1]
+                .strip()
+            )
 
         return result
 

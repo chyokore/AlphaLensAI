@@ -6,6 +6,9 @@ import sys
 from signal_engine import (
     get_best_opportunity
 )
+from economic_calendar import (
+    get_economic_events
+)
 from signal_logger import save_signal
 from translations import TRANSLATIONS
 from translator import translate_text
@@ -14,6 +17,20 @@ get_trending_coins,
 get_global_market,
 get_fear_greed
 )
+from datetime import datetime
+
+if (
+    "last_trade_check"
+    not in st.session_state
+):
+
+    st.session_state[
+        "last_trade_check"
+    ] = datetime.now()
+
+    os.system(
+        f"{sys.executable} trade_tracker.py"
+    )
 
 # =========================
 
@@ -182,7 +199,33 @@ pending = st.session_state.get(
 
 if pending:
 
-    ...
+    col1, col2 = st.columns(2)
+
+    col1.metric(
+        "Coin",
+        pending["coin"]
+    )
+
+    col2.metric(
+        "Signal",
+        pending["signal"]
+    )
+
+    col1.metric(
+        "Confidence",
+        pending["confidence"]
+    )
+
+    col2.metric(
+        "Entry Price",
+        f"${pending['entry_price']:.4f}"
+    )
+
+    st.text_area(
+        "AI Report",
+        pending["report"],
+        height=150
+    )
 
     col1, col2 = st.columns(2)
 
@@ -538,7 +581,162 @@ except Exception:
     "Fear & Greed unavailable"
 )
 
+# =========================
+# ECONOMIC CALENDAR
+# =========================
 
+st.markdown("---")
+
+st.header(translate_text("📅 Economic Calendar", language))
+
+events = get_economic_events()
+
+high_impact = [
+    e for e in events
+    if "🔴" in e["impact"]
+]
+
+if high_impact:
+
+    st.warning(
+        f"⚠️ {len(high_impact)} high-impact economic events scheduled."
+    )
+
+for event in events:
+
+    with st.expander(
+        f"{event['impact']} {event['event']}"
+    ):
+
+        st.write(
+            f"📅 Date: {event['date']}"
+        )
+
+        st.write(
+            f"⏰ Time: {event['time']}"
+        )
+
+        st.write(
+            event["description"]
+        )
+
+# =========================
+# MARKET BRIEF
+# =========================
+
+st.markdown("---")
+
+st.header(
+    f"📰 {T['market_brief']}"
+)
+
+latest_brief = None
+briefs = []
+
+if os.path.exists("reports"):
+
+    briefs = sorted(
+        [
+            file
+            for file in os.listdir("reports")
+            if file.startswith(
+                "market_brief"
+            )
+        ],
+        reverse=True
+    )
+
+if len(briefs) > 0:
+
+    latest_brief = os.path.join(
+        "reports",
+        briefs[0]
+    )
+
+if latest_brief:
+
+    with open(
+        latest_brief,
+        "r",
+        encoding="utf-8"
+    ) as f:
+
+        brief = f.read()
+
+    display_brief = (
+        brief
+        if language == "English"
+        else translate_text(
+            brief,
+            language
+        )
+    )
+
+    st.text_area(
+        "Market Brief",
+        value=display_brief,
+        height=400,
+        key=f"brief_{os.path.getmtime(latest_brief)}",
+        label_visibility="collapsed"
+    )
+
+else:
+
+    st.info(
+        "Run market_brief.py first."
+    )
+
+  
+ # =========================
+
+# PORTFOLIO
+
+# =========================
+
+st.markdown("---")
+
+st.header(
+f"💼 {T['portfolio']}"
+)
+
+portfolio_file = "reports/portfolio_report.txt"
+
+if os.path.exists(portfolio_file):
+
+    with open(
+        portfolio_file,
+        "r",
+        encoding="utf-8"
+    ) as f:
+
+        portfolio_text = f.read()
+
+    display_text = (
+        portfolio_text
+        if language == "English"
+        else translate_text(
+            portfolio_text,
+            language
+        )
+    )
+
+    st.text_area(
+        "Portfolio Report",
+        value=display_text,
+        height=400,
+        key=f"portfolio_{os.path.getmtime(portfolio_file)}",
+        label_visibility="collapsed"
+    )
+
+else:
+
+    st.text_area(
+        "Portfolio Report",
+        value="Portfolio report not available",
+        height=400,
+        label_visibility="collapsed"
+    )
+ 
 # =========================
 
 # SIGNAL HISTORY
@@ -630,121 +828,7 @@ if not df.empty:
             ],
             width="stretch"
         )
-# =========================
 
-# PORTFOLIO
-
-# =========================
-
-st.markdown("---")
-
-st.header(
-f"💼 {T['portfolio']}"
-)
-
-portfolio_file = "reports/portfolio_report.txt"
-
-if os.path.exists(portfolio_file):
-
-    with open(
-        portfolio_file,
-        "r",
-        encoding="utf-8"
-    ) as f:
-
-        portfolio_text = f.read()
-
-    display_text = (
-        portfolio_text
-        if language == "English"
-        else translate_text(
-            portfolio_text,
-            language
-        )
-    )
-
-    st.text_area(
-        "Portfolio Report",
-        value=display_text,
-        height=400,
-        key=f"portfolio_{os.path.getmtime(portfolio_file)}",
-        label_visibility="collapsed"
-    )
-
-else:
-
-    st.text_area(
-        "Portfolio Report",
-        value="Portfolio report not available",
-        height=400,
-        label_visibility="collapsed"
-    )
-
-# =========================
-# MARKET BRIEF
-# =========================
-
-st.markdown("---")
-
-st.header(
-    f"📰 {T['market_brief']}"
-)
-
-latest_brief = None
-briefs = []
-
-if os.path.exists("reports"):
-
-    briefs = sorted(
-        [
-            file
-            for file in os.listdir("reports")
-            if file.startswith(
-                "market_brief"
-            )
-        ],
-        reverse=True
-    )
-
-if len(briefs) > 0:
-
-    latest_brief = os.path.join(
-        "reports",
-        briefs[0]
-    )
-
-if latest_brief:
-
-    with open(
-        latest_brief,
-        "r",
-        encoding="utf-8"
-    ) as f:
-
-        brief = f.read()
-
-    display_brief = (
-        brief
-        if language == "English"
-        else translate_text(
-            brief,
-            language
-        )
-    )
-
-    st.text_area(
-        "Market Brief",
-        value=display_brief,
-        height=400,
-        key=f"brief_{os.path.getmtime(latest_brief)}",
-        label_visibility="collapsed"
-    )
-
-else:
-
-    st.info(
-        "Run market_brief.py first."
-    )
 # =========================
 
 # SUMMARY
