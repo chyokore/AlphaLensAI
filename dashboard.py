@@ -80,6 +80,7 @@ st.markdown("---")
 
 import csv
 from datetime import datetime
+import subprocess
 
 # =========================
 # ACTION BUTTONS
@@ -98,8 +99,9 @@ with col1:
             "Generating portfolio analysis..."
         ):
 
-            os.system(
-                f"{sys.executable} portfolio.py"
+            subprocess.run(
+                [sys.executable, "portfolio.py"],
+                check=False
             )
 
         st.success(
@@ -116,8 +118,9 @@ with col2:
             "Generating market brief..."
         ):
 
-            os.system(
-                f"{sys.executable} market_brief.py"
+            subprocess.run(
+                [sys.executable, "market_brief.py"],
+                check=False
             )
 
         st.success(
@@ -134,8 +137,9 @@ with col3:
             "Updating trades..."
         ):
 
-            os.system(
-                f"{sys.executable} trade_tracker.py"
+            subprocess.run(
+                [sys.executable, "trade_tracker.py"],
+                check=False
             )
 
         st.success(
@@ -182,6 +186,122 @@ if st.button(
 ):
 
     st.rerun()
+
+# =========================
+
+# PORTFOLIO
+
+# =========================
+
+st.markdown("---")
+
+st.header(
+f"💼 {T['portfolio']}"
+)
+
+portfolio_file = "reports/portfolio_report.txt"
+
+if os.path.exists(portfolio_file):
+
+    with open(
+        portfolio_file,
+        "r",
+        encoding="utf-8"
+    ) as f:
+
+        portfolio_text = f.read()
+
+    display_text = (
+        portfolio_text
+        if language == "English"
+        else translate_text(
+            portfolio_text,
+            language
+        )
+    )
+
+    st.text_area(
+        "Portfolio Report",
+        value=display_text,
+        height=400,
+        key=f"portfolio_{os.path.getmtime(portfolio_file)}",
+        label_visibility="collapsed"
+    )
+
+else:
+
+    st.text_area(
+        "Portfolio Report",
+        value="Portfolio report not available",
+        height=400,
+        label_visibility="collapsed"
+    )
+
+    # =========================
+# MARKET BRIEF
+# =========================
+
+st.markdown("---")
+
+st.header(
+    f"📰 {T['market_brief']}"
+)
+
+latest_brief = None
+briefs = []
+
+if os.path.exists("reports"):
+
+    briefs = sorted(
+        [
+            file
+            for file in os.listdir("reports")
+            if file.startswith(
+                "market_brief"
+            )
+        ],
+        reverse=True
+    )
+
+if len(briefs) > 0:
+
+    latest_brief = os.path.join(
+        "reports",
+        briefs[0]
+    )
+
+if latest_brief:
+
+    with open(
+        latest_brief,
+        "r",
+        encoding="utf-8"
+    ) as f:
+
+        brief = f.read()
+
+    display_brief = (
+        brief
+        if language == "English"
+        else translate_text(
+            brief,
+            language
+        )
+    )
+
+    st.text_area(
+        "Market Brief",
+        value=display_brief,
+        height=400,
+        key=f"brief_{os.path.getmtime(latest_brief)}",
+        label_visibility="collapsed"
+    )
+
+else:
+
+    st.info(
+        "Run market_brief.py first."
+    )
 
 # =========================
 # PENDING TRADE
@@ -295,6 +415,19 @@ if os.path.exists(
         )
     except Exception:
         df = pd.DataFrame()
+
+        # DEBUG
+
+st.write(
+    "OPEN TRADES:",
+    len(
+        df[
+            df["status"] == "OPEN"
+        ]
+    )
+)
+
+st.write(df.tail())
 
 # =========================
 # PLATFORM OVERVIEW
@@ -619,123 +752,6 @@ for event in events:
         st.write(
             event["description"]
         )
-
-# =========================
-# MARKET BRIEF
-# =========================
-
-st.markdown("---")
-
-st.header(
-    f"📰 {T['market_brief']}"
-)
-
-latest_brief = None
-briefs = []
-
-if os.path.exists("reports"):
-
-    briefs = sorted(
-        [
-            file
-            for file in os.listdir("reports")
-            if file.startswith(
-                "market_brief"
-            )
-        ],
-        reverse=True
-    )
-
-if len(briefs) > 0:
-
-    latest_brief = os.path.join(
-        "reports",
-        briefs[0]
-    )
-
-if latest_brief:
-
-    with open(
-        latest_brief,
-        "r",
-        encoding="utf-8"
-    ) as f:
-
-        brief = f.read()
-
-    display_brief = (
-        brief
-        if language == "English"
-        else translate_text(
-            brief,
-            language
-        )
-    )
-
-    st.text_area(
-        "Market Brief",
-        value=display_brief,
-        height=400,
-        key=f"brief_{os.path.getmtime(latest_brief)}",
-        label_visibility="collapsed"
-    )
-
-else:
-
-    st.info(
-        "Run market_brief.py first."
-    )
-
-  
- # =========================
-
-# PORTFOLIO
-
-# =========================
-
-st.markdown("---")
-
-st.header(
-f"💼 {T['portfolio']}"
-)
-
-portfolio_file = "reports/portfolio_report.txt"
-
-if os.path.exists(portfolio_file):
-
-    with open(
-        portfolio_file,
-        "r",
-        encoding="utf-8"
-    ) as f:
-
-        portfolio_text = f.read()
-
-    display_text = (
-        portfolio_text
-        if language == "English"
-        else translate_text(
-            portfolio_text,
-            language
-        )
-    )
-
-    st.text_area(
-        "Portfolio Report",
-        value=display_text,
-        height=400,
-        key=f"portfolio_{os.path.getmtime(portfolio_file)}",
-        label_visibility="collapsed"
-    )
-
-else:
-
-    st.text_area(
-        "Portfolio Report",
-        value="Portfolio report not available",
-        height=400,
-        label_visibility="collapsed"
-    )
  
 # =========================
 

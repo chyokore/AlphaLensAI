@@ -1,5 +1,7 @@
+import streamlit as st
 from datetime import datetime
 
+@st.cache_data(ttl=3600)
 def get_economic_events():
 
     return [

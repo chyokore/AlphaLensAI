@@ -1,9 +1,11 @@
 import requests
+import streamlit as st
 
 # =========================
 # TRENDING COINS
 # =========================
 
+@st.cache_data(ttl=300)
 def get_trending_coins():
     url = "https://api.coingecko.com/api/v3/search/trending"
 
@@ -30,6 +32,7 @@ def get_trending_coins():
 # GLOBAL MARKET DATA
 # =========================
 
+@st.cache_data(ttl=300)
 def get_global_market():
     url = "https://api.coingecko.com/api/v3/global"
 
@@ -57,6 +60,7 @@ def get_global_market():
 # FEAR & GREED INDEX
 # =========================
 
+@st.cache_data(ttl=300)
 def get_fear_greed():
     url = "https://api.alternative.me/fng/"
 
