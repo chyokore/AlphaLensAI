@@ -187,6 +187,43 @@ if st.button(
 
     st.rerun()
 
+    # =========================
+
+# CAPABILITIES
+
+# =========================
+
+st.markdown("---")
+
+st.header(f"🤖 {T['capabilities']}")
+
+capabilities = """
+🤖 AI Trading Signals
+📊 Portfolio Intelligence
+📰 AI Market Briefs
+📅 Economic Calendar
+📈 Bitget Market Data
+🌍 Global Market Intelligence
+😨 Fear & Greed Analysis
+🔥 Trending Coin Discovery
+🎯 Confidence Scoring
+⚠️ Risk Management
+📋 Pending Trade Workflow
+🔄 Automated Trade Monitoring
+🏆 Trade Performance Analytics
+📊 Trade Leaderboards
+💼 Portfolio Health Scoring
+🧠 Market Narrative Generation
+🌐 Multi-Language Support
+"""
+
+st.markdown(
+translate_text(
+capabilities,
+language
+)
+)
+
 # =========================
 
 # PORTFOLIO
@@ -303,6 +340,45 @@ else:
         "Run market_brief.py first."
     )
 
+    # =========================
+# ECONOMIC CALENDAR
+# =========================
+
+st.markdown("---")
+
+st.header(translate_text("📅 Economic Calendar", language))
+
+events = get_economic_events()
+
+high_impact = [
+    e for e in events
+    if "🔴" in e["impact"]
+]
+
+if high_impact:
+
+    st.warning(
+        f"⚠️ {len(high_impact)} high-impact economic events scheduled."
+    )
+
+for event in events:
+
+    with st.expander(
+        f"{event['impact']} {event['event']}"
+    ):
+
+        st.write(
+            f"📅 Date: {event['date']}"
+        )
+
+        st.write(
+            f"⏰ Time: {event['time']}"
+        )
+
+        st.write(
+            event["description"]
+        )
+
 # =========================
 # PENDING TRADE
 # =========================
@@ -399,6 +475,37 @@ else:
     st.info(
         "Generate a signal to create a pending trade."
     )
+
+    # =========================
+# ACTIVE SIGNALS
+# =========================
+
+st.markdown("---")
+
+st.header("🔴 Active Signals")
+
+# Ensure df is defined before use (it may be loaded later in the file)
+if "df" not in locals():
+    df = pd.DataFrame()
+
+if not df.empty:
+
+    open_trades = df[
+        df["status"] == "OPEN"
+    ]
+
+    if len(open_trades) > 0:
+
+        st.dataframe(
+            open_trades,
+            width="stretch"
+        )
+
+    else:
+
+        st.info(
+            "No active signals."
+        )
 
 # =========================
 # LOAD SIGNALS
@@ -534,66 +641,7 @@ else:
     st.warning(
     "signals.csv not found"
 )
-
-
-# =========================
-# ACTIVE SIGNALS
-# =========================
-
-st.markdown("---")
-
-st.header("🔴 Active Signals")
-
-if not df.empty:
-
-    open_trades = df[
-        df["status"] == "OPEN"
-    ]
-
-    if len(open_trades) > 0:
-
-        st.dataframe(
-            open_trades,
-            width="stretch"
-        )
-
-    else:
-
-        st.info(
-            "No active signals."
-        )
-# =========================
-
-# CAPABILITIES
-
-# =========================
-
-st.markdown("---")
-
-st.header(f"🤖 {T['capabilities']}")
-
-capabilities = """
-✅ AI Trading Signals
-✅ Confidence Scoring
-✅ Bitget Market Data
-✅ Portfolio Intelligence
-✅ Daily Market Brief
-✅ Trade Tracking
-✅ Paper Trading Analytics
-✅ Trending Coin Analysis
-✅ Fear & Greed Monitoring
-✅ Multi-Language Support
-✅ Risk Management
-✅ Market Narratives
-"""
-
-st.markdown(
-translate_text(
-capabilities,
-language
-)
-)
-
+    
 # =========================
 
 # TRENDING COINS
@@ -714,45 +762,6 @@ except Exception:
     "Fear & Greed unavailable"
 )
 
-# =========================
-# ECONOMIC CALENDAR
-# =========================
-
-st.markdown("---")
-
-st.header(translate_text("📅 Economic Calendar", language))
-
-events = get_economic_events()
-
-high_impact = [
-    e for e in events
-    if "🔴" in e["impact"]
-]
-
-if high_impact:
-
-    st.warning(
-        f"⚠️ {len(high_impact)} high-impact economic events scheduled."
-    )
-
-for event in events:
-
-    with st.expander(
-        f"{event['impact']} {event['event']}"
-    ):
-
-        st.write(
-            f"📅 Date: {event['date']}"
-        )
-
-        st.write(
-            f"⏰ Time: {event['time']}"
-        )
-
-        st.write(
-            event["description"]
-        )
- 
 # =========================
 
 # SIGNAL HISTORY
