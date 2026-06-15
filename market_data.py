@@ -22,35 +22,16 @@ def get_trending_coins():
 
         data = response.json()
 
-        trending = []
+        return [
+            coin["item"]["symbol"].upper()
+            for coin in data["coins"][:5]
+        ]
 
-        for coin in data["coins"][:5]:
+    except Exception as e:
 
-            item = coin["item"]
-
-            symbol = item["symbol"].upper()
-
-            change = item.get(
-                "data",
-                {}
-            ).get(
-                "price_change_percentage_24h",
-                {}
-            ).get(
-                "usd",
-                0
-            )
-
-            trending.append(
-                {
-                    "symbol": symbol,
-                    "change": change
-                }
-            )
-
-        return trending
-
-    except Exception:
+        print(
+            f"Trending Coins Error: {e}"
+        )
 
         return []
 # =========================
@@ -82,14 +63,16 @@ def get_global_market():
         return None
 
 # =========================
-# FEAR & GREED INDEX
+# FEAR & GREED
 # =========================
 
 @st.cache_data(ttl=300)
 def get_fear_greed():
+
     url = "https://api.alternative.me/fng/"
 
     try:
+
         response = requests.get(
             url,
             timeout=10
@@ -106,7 +89,41 @@ def get_fear_greed():
 
         return value, classification
 
-    except Exception:
-        return None, "Unavailable"
-    
-  
+    except Exception as e:
+
+        print(
+            f"Fear & Greed Error: {e}"
+        )
+
+        return "N/A", "Unavailable"
+        def get_fear_greed():
+
+    url = "https://api.alternative.me/fng/"
+
+    try:
+
+        response = requests.get(
+            url,
+            timeout=10
+        )
+
+        print("Status Code:", response.status_code)
+        print("Response:", response.text[:500])
+
+        data = response.json()
+
+        value = data["data"][0]["value"]
+
+        classification = (
+            data["data"][0]["value_classification"]
+        )
+
+        return value, classification
+
+    except Exception as e:
+
+        print(
+            f"Fear & Greed Error: {e}"
+        )
+
+        return "N/A", "Unavailable"
