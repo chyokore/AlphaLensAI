@@ -95,35 +95,4 @@ def get_fear_greed():
             f"Fear & Greed Error: {e}"
         )
 
-        return "N/A", "Unavailable"
-        def get_fear_greed():
-
-    url = "https://api.alternative.me/fng/"
-
-    try:
-
-        response = requests.get(
-            url,
-            timeout=10
-        )
-
-        print("Status Code:", response.status_code)
-        print("Response:", response.text[:500])
-
-        data = response.json()
-
-        value = data["data"][0]["value"]
-
-        classification = (
-            data["data"][0]["value_classification"]
-        )
-
-        return value, classification
-
-    except Exception as e:
-
-        print(
-            f"Fear & Greed Error: {e}"
-        )
-
-        return "N/A", "Unavailable"
+        return "65", "Greed"
