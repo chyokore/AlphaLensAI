@@ -64,448 +64,49 @@ language = st.sidebar.selectbox(
 T = TRANSLATIONS[language]
 
 # =========================
-
 # HEADER
-
 # =========================
 
-st.title(f"🚀 {T['title']}")
-st.subheader(T["subtitle"])
+header_col1, header_col2 = st.columns([1, 6])
 
-st.markdown("---")
+with header_col1:
 
-# =========================
-# AI ACTION CENTER
-# =========================
+    try:
 
-import csv
-from datetime import datetime
-import subprocess
-
-# =========================
-# ACTION BUTTONS
-# =========================
-
-st.markdown("---")
-st.header("⚡ AI Action Center")
-
-col1, col2, col3, col4 = st.columns(4)
-
-with col1:
-
-    if st.button("📊 Portfolio Analysis"):
-
-        with st.spinner(
-            "Generating portfolio analysis..."
-        ):
-
-            subprocess.run(
-                [sys.executable, "portfolio.py"],
-                check=False
-            )
-
-        st.success(
-            "Portfolio report updated."
+        st.image(
+            "logo.png",
+            width=90
         )
 
-        st.rerun()
+    except Exception:
 
-with col2:
+        st.markdown("# 🚀")
 
-    if st.button("📰 Market Brief"):
+with header_col2:
 
-        with st.spinner(
-            "Generating market brief..."
-        ):
+    st.title("AlphaLens AI")
 
-            subprocess.run(
-                [sys.executable, "market_brief.py"],
-                check=False
-            )
+    st.caption(
+        "Built for Bitget AI Base Camp Hackathon S1 2026"
+    )
 
-        st.success(
-            "Market brief updated."
-        )
-
-        st.rerun()
-
-with col3:
-
-    if st.button("📈 Update Trades"):
-
-        with st.spinner(
-            "Updating trades..."
-        ):
-
-            subprocess.run(
-                [sys.executable, "trade_tracker.py"],
-                check=False
-            )
-
-        st.success(
-            "Trades updated."
-        )
-
-        st.rerun()
-
-with col4:
-
-    if st.button("🤖 Generate Signal"):
-
-        with st.spinner(
-            "Generating AI signal..."
-        ):
-
-            signal = (
-                get_best_opportunity()
-            )
-
-            if signal:
-
-                st.session_state[
-                    "pending_signal"
-                ] = signal
-
-                st.success(
-                    f"Signal generated for {signal['coin']}"
-                )
-
-                st.rerun()
-
-            else:
-
-                st.error(
-                    "Unable to generate signal."
-                )
-# =========================
-# REFRESH
-# =========================
-
-if st.button(
-    "🔄 Refresh Dashboard"
-):
-
-    st.rerun()
-
-    # =========================
-
-# CAPABILITIES
-
-# =========================
-
-st.markdown("---")
-
-st.header(f"🤖 {T['capabilities']}")
-
-capabilities = """
-🤖 AI Trading Signals
-📊 Portfolio Intelligence
-📰 AI Market Briefs
-📅 Economic Calendar
-📈 Bitget Market Data
-🌍 Global Market Intelligence
-😨 Fear & Greed Analysis
-🔥 Trending Coin Discovery
-🎯 Confidence Scoring
-⚠️ Risk Management
-📋 Pending Trade Workflow
-🔄 Automated Trade Monitoring
-🏆 Trade Performance Analytics
-📊 Trade Leaderboards
-💼 Portfolio Health Scoring
-🧠 Market Narrative Generation
-🌐 Multi-Language Support
-"""
+    st.subheader(
+        "Multilingual AI-Powered Crypto Intelligence Platform"
+    )
 
 st.markdown(
-translate_text(
-capabilities,
-language
+    """
+🤖 AI Signals • 📊 Portfolio Intelligence • 📰 Market Briefs • 📅 Economic Calendar • 🌍 Market Intelligence • 🌐 Multi-Language Support
+"""
 )
-)
-
-# =========================
-
-# PORTFOLIO
-
-# =========================
 
 st.markdown("---")
 
-st.header(
-f"💼 {T['portfolio']}"
-)
-
-portfolio_file = "reports/portfolio_report.txt"
-
-if os.path.exists(portfolio_file):
-
-    with open(
-        portfolio_file,
-        "r",
-        encoding="utf-8"
-    ) as f:
-
-        portfolio_text = f.read()
-
-    display_text = (
-        portfolio_text
-        if language == "English"
-        else translate_text(
-            portfolio_text,
-            language
-        )
-    )
-
-    st.text_area(
-        "Portfolio Report",
-        value=display_text,
-        height=400,
-        key=f"portfolio_{os.path.getmtime(portfolio_file)}",
-        label_visibility="collapsed"
-    )
-
-else:
-
-    st.text_area(
-        "Portfolio Report",
-        value="Portfolio report not available",
-        height=400,
-        label_visibility="collapsed"
-    )
-
-    # =========================
-# MARKET BRIEF
+# =========================
+# HEADER
 # =========================
 
 st.markdown("---")
-
-st.header(
-    f"📰 {T['market_brief']}"
-)
-
-latest_brief = None
-briefs = []
-
-if os.path.exists("reports"):
-
-    briefs = sorted(
-        [
-            file
-            for file in os.listdir("reports")
-            if file.startswith(
-                "market_brief"
-            )
-        ],
-        reverse=True
-    )
-
-if len(briefs) > 0:
-
-    latest_brief = os.path.join(
-        "reports",
-        briefs[0]
-    )
-
-if latest_brief:
-
-    with open(
-        latest_brief,
-        "r",
-        encoding="utf-8"
-    ) as f:
-
-        brief = f.read()
-
-    display_brief = (
-        brief
-        if language == "English"
-        else translate_text(
-            brief,
-            language
-        )
-    )
-
-    st.text_area(
-        "Market Brief",
-        value=display_brief,
-        height=400,
-        key=f"brief_{os.path.getmtime(latest_brief)}",
-        label_visibility="collapsed"
-    )
-
-else:
-
-    st.info(
-        "Run market_brief.py first."
-    )
-
-    # =========================
-# ECONOMIC CALENDAR
-# =========================
-
-st.markdown("---")
-
-st.header(translate_text("📅 Economic Calendar", language))
-
-events = get_economic_events()
-
-high_impact = [
-    e for e in events
-    if "🔴" in e["impact"]
-]
-
-if high_impact:
-
-    st.warning(
-        f"⚠️ {len(high_impact)} high-impact economic events scheduled."
-    )
-
-for event in events:
-
-    with st.expander(
-        f"{event['impact']} {event['event']}"
-    ):
-
-        st.write(
-            f"📅 Date: {event['date']}"
-        )
-
-        st.write(
-            f"⏰ Time: {event['time']}"
-        )
-
-        st.write(
-            event["description"]
-        )
-
-# =========================
-# PENDING TRADE
-# =========================
-
-st.markdown("---")
-
-st.header(
-    "📋 Pending Trade"
-)
-
-pending = st.session_state.get(
-    "pending_signal"
-)
-
-if pending:
-
-    col1, col2 = st.columns(2)
-
-    col1.metric(
-        "Coin",
-        pending["coin"]
-    )
-
-    col2.metric(
-        "Signal",
-        pending["signal"]
-    )
-
-    col1.metric(
-        "Confidence",
-        pending["confidence"]
-    )
-
-    col2.metric(
-        "Entry Price",
-        f"${pending['entry_price']:.4f}"
-    )
-
-    st.text_area(
-        "AI Report",
-        pending["report"],
-        height=150
-    )
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-
-        if st.button(
-            "✅ Place Order"
-        ):
-
-            save_signal(
-                coin=pending["coin"],
-                signal=pending["signal"],
-                confidence=pending["confidence"],
-                entry_price=pending["entry_price"]
-            )
-
-            os.system(
-                f"{sys.executable} portfolio.py"
-            )
-
-            os.system(
-                f"{sys.executable} market_brief.py"
-            )
-
-            del st.session_state[
-                "pending_signal"
-            ]
-
-            st.success(
-                "Trade placed successfully."
-            )
-
-            st.rerun()
-
-    with col2:
-
-        if st.button(
-            "🔄 Generate New Signal"
-        ):
-
-            st.session_state[
-                "pending_signal"
-            ] = (
-                get_best_opportunity()
-            )
-
-            st.rerun()
-
-else:
-
-    st.info(
-        "Generate a signal to create a pending trade."
-    )
-
-    # =========================
-# ACTIVE SIGNALS
-# =========================
-
-st.markdown("---")
-
-st.header("🔴 Active Signals")
-
-# Ensure df is defined before use (it may be loaded later in the file)
-if "df" not in locals():
-    df = pd.DataFrame()
-
-if not df.empty:
-
-    open_trades = df[
-        df["status"] == "OPEN"
-    ]
-
-    if len(open_trades) > 0:
-
-        st.dataframe(
-            open_trades,
-            width="stretch"
-        )
-
-    else:
-
-        st.info(
-            "No active signals."
-        )
 
 # =========================
 # LOAD SIGNALS
@@ -513,28 +114,17 @@ if not df.empty:
 
 df = pd.DataFrame()
 
-if os.path.exists(
-    "signals.csv"
-):
+if os.path.exists("signals.csv"):
+
     try:
+
         df = pd.read_csv(
             "signals.csv"
         )
+
     except Exception:
+
         df = pd.DataFrame()
-
-        # DEBUG
-
-st.write(
-    "OPEN TRADES:",
-    len(
-        df[
-            df["status"] == "OPEN"
-        ]
-    )
-)
-
-st.write(df.tail())
 
 # =========================
 # PLATFORM OVERVIEW
@@ -641,39 +231,554 @@ else:
     st.warning(
     "signals.csv not found"
 )
-    
+
 # =========================
 
-# TRENDING COINS
+# CAPABILITIES
 
 # =========================
 
 st.markdown("---")
 
-st.header(f"🔥 {T['trending']}")
+st.header(f"🤖 {T['capabilities']}")
 
-try:
-    trending = get_trending_coins()
+capabilities = """
+🤖 AI Trading Signals
+📊 Portfolio Intelligence
+📰 AI Market Briefs
+📅 Economic Calendar
+📈 Bitget Market Data
+🌍 Global Market Intelligence
+😨 Fear & Greed Analysis
+🔥 Trending Coin Discovery
+🎯 Confidence Scoring
+⚠️ Risk Management
+📋 Pending Trade Workflow
+🔄 Automated Trade Monitoring
+🏆 Trade Performance Analytics
+📊 Trade Leaderboards
+💼 Portfolio Health Scoring
+🧠 Market Narrative Generation
+🌐 Multi-Language Support
+"""
 
-    if trending:
+st.markdown(
+translate_text(
+capabilities,
+language
+)
+)
 
-        cols = st.columns(
-            len(trending)
-        )
+# =========================
+# MARKET OVERVIEW
+# =========================
 
-        for i, coin in enumerate(
-            trending
-        ):
+st.markdown("---")
 
-            cols[i].metric(
-                f"#{i+1}",
-                coin
+market_col, fear_col = st.columns([4, 1])
+
+# ==================================
+# MARKET PULSE
+# ==================================
+
+with market_col:
+
+    st.subheader("🔥 Market Pulse")
+
+    st.caption(
+        "Real-time trending assets across the crypto market."
+    )
+
+    try:
+
+        trending = get_trending_coins()
+
+        if trending:
+
+            cols = st.columns(5)
+
+            for i, coin in enumerate(
+                trending[:5]
+            ):
+
+                cols[i].metric(
+                    label=f"#{i+1}",
+                    value=coin,
+                    delta="Trending"
+                )
+
+        else:
+
+            st.info(
+                "No trending coins available."
             )
 
-except Exception:
+    except Exception:
+
+        st.warning(
+            "Trending coins unavailable."
+        )
+
+# ==================================
+# FEAR & GREED
+# ==================================
+
+with fear_col:
+
+    st.subheader("😨 Fear & Greed")
+
+    try:
+
+        value, sentiment = (
+            get_fear_greed()
+        )
+
+        st.metric(
+            label="Score",
+            value=value
+        )
+
+        st.metric(
+            label="Sentiment",
+            value=sentiment
+        )
+
+    except Exception:
+
+        st.warning(
+            "Unavailable"
+        )
+
+# =========================
+# ECONOMIC CALENDAR
+# =========================
+
+st.markdown("---")
+
+st.header(translate_text("📅 Economic Calendar", language))
+
+events = get_economic_events()
+
+high_impact = [
+    e for e in events
+    if "🔴" in e["impact"]
+]
+
+if high_impact:
+
     st.warning(
-        "Trending coins unavailable"
+        f"⚠️ {len(high_impact)} high-impact economic events scheduled."
     )
+
+for event in events:
+
+    with st.expander(
+        f"{event['impact']} {event['event']}"
+    ):
+
+        st.write(
+            f"📅 Date: {event['date']}"
+        )
+
+        st.write(
+            f"⏰ Time: {event['time']}"
+        )
+
+        st.write(
+            event["description"]
+        )
+
+# =========================
+
+# PORTFOLIO
+
+# =========================
+
+st.markdown("---")
+
+st.header(
+f"💼 {T['portfolio']}"
+)
+
+portfolio_file = "reports/portfolio_report.txt"
+
+if os.path.exists(portfolio_file):
+
+    with open(
+        portfolio_file,
+        "r",
+        encoding="utf-8"
+    ) as f:
+
+        portfolio_text = f.read()
+
+    display_text = (
+        portfolio_text
+        if language == "English"
+        else translate_text(
+            portfolio_text,
+            language
+        )
+    )
+
+    st.text_area(
+        "Portfolio Report",
+        value=display_text,
+        height=400,
+        key=f"portfolio_{os.path.getmtime(portfolio_file)}",
+        label_visibility="collapsed"
+    )
+
+else:
+
+    st.text_area(
+        "Portfolio Report",
+        value="Portfolio report not available",
+        height=400,
+        label_visibility="collapsed"
+    )
+
+# =========================
+# MARKET BRIEF
+# =========================
+
+st.markdown("---")
+
+st.header(
+    f"📰 {T['market_brief']}"
+)
+
+latest_brief = None
+briefs = []
+
+if os.path.exists("reports"):
+
+    briefs = sorted(
+        [
+            file
+            for file in os.listdir("reports")
+            if file.startswith(
+                "market_brief"
+            )
+        ],
+        reverse=True
+    )
+
+if len(briefs) > 0:
+
+    latest_brief = os.path.join(
+        "reports",
+        briefs[0]
+    )
+
+if latest_brief:
+
+    with open(
+        latest_brief,
+        "r",
+        encoding="utf-8"
+    ) as f:
+
+        brief = f.read()
+
+    display_brief = (
+        brief
+        if language == "English"
+        else translate_text(
+            brief,
+            language
+        )
+    )
+
+    st.text_area(
+        "Market Brief",
+        value=display_brief,
+        height=400,
+        key=f"brief_{os.path.getmtime(latest_brief)}",
+        label_visibility="collapsed"
+    )
+
+else:
+
+    st.info(
+        "Run market_brief.py first."
+    )
+
+    # =========================
+# AI ACTION CENTER
+# =========================
+
+import csv
+from datetime import datetime
+import subprocess
+
+# =========================
+# AI COMMAND CENTER
+# =========================
+
+st.markdown("---")
+
+st.header("⚡ AI Command Center")
+
+st.caption(
+    "Launch AlphaLens AI agents and intelligence workflows."
+)
+
+col1, col2 = st.columns(2)
+
+# ==================================
+# LEFT SIDE
+# ==================================
+
+with col1:
+
+    if st.button(
+        "📊 Generate Portfolio Intelligence",
+        use_container_width=True
+    ):
+
+        with st.spinner(
+            "Analyzing portfolio..."
+        ):
+
+            subprocess.run(
+                [sys.executable, "portfolio.py"],
+                check=False
+            )
+
+        st.success(
+            "Portfolio Intelligence Updated"
+        )
+
+        st.rerun()
+
+    if st.button(
+        "📰 Generate Market Brief",
+        use_container_width=True
+    ):
+
+        with st.spinner(
+            "Building market brief..."
+        ):
+
+            subprocess.run(
+                [sys.executable, "market_brief.py"],
+                check=False
+            )
+
+        st.success(
+            "Market Brief Updated"
+        )
+
+        st.rerun()
+
+# ==================================
+# RIGHT SIDE
+# ==================================
+
+with col2:
+
+    if st.button(
+        "📈 Update Trade Tracker",
+        use_container_width=True
+    ):
+
+        with st.spinner(
+            "Scanning open trades..."
+        ):
+
+            subprocess.run(
+                [sys.executable, "trade_tracker.py"],
+                check=False
+            )
+
+        st.success(
+            "Trade Tracker Updated"
+        )
+
+        st.rerun()
+
+    if st.button(
+        "🤖 Generate AI Signal",
+        use_container_width=True
+    ):
+
+        with st.spinner(
+            "Searching for alpha..."
+        ):
+
+            signal = get_best_opportunity()
+
+            if signal:
+
+                st.session_state[
+                    "pending_signal"
+                ] = signal
+
+                st.success(
+                    f"{signal['coin']} opportunity detected"
+                )
+
+                st.rerun()
+
+            else:
+
+                st.error(
+                    "No opportunity found."
+                )
+
+# ==================================
+# DASHBOARD REFRESH
+# ==================================
+
+st.markdown("")
+
+if st.button(
+    "🔄 Refresh Intelligence Hub",
+    use_container_width=True
+):
+
+    st.rerun()
+
+
+# =========================
+# PENDING TRADE
+# =========================
+
+st.markdown("---")
+
+st.header(
+    "📋 Pending Trade"
+)
+
+pending = st.session_state.get(
+    "pending_signal"
+)
+
+if pending:
+
+    col1, col2 = st.columns(2)
+
+    col1.metric(
+        "Coin",
+        pending.get("coin", "N/A")
+    )
+
+    col2.metric(
+        "Signal",
+        pending.get("signal", "N/A")
+    )
+
+    col1.metric(
+        "Confidence",
+        pending.get("confidence", "N/A")
+    )
+
+    col2.metric(
+        "Entry Price",
+        f"${pending.get('entry_price', 0):.4f}"
+    )
+
+    st.text_area(
+        "🤖 AI Analysis",
+        pending.get(
+            "report",
+            "Analysis unavailable."
+        ),
+        height=180
+    )
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+
+        if st.button(
+            "✅ Place Order",
+            use_container_width=True
+        ):
+
+            save_signal(
+                coin=pending["coin"],
+                signal=pending["signal"],
+                confidence=pending["confidence"],
+                entry_price=pending["entry_price"]
+            )
+
+            subprocess.run(
+                [sys.executable, "portfolio.py"],
+                check=False
+            )
+
+            subprocess.run(
+                [sys.executable, "market_brief.py"],
+                check=False
+            )
+
+            del st.session_state[
+                "pending_signal"
+            ]
+
+            st.success(
+                "Trade placed successfully."
+            )
+
+            st.rerun()
+
+    with col2:
+
+        if st.button(
+            "🔄 Generate New Signal",
+            use_container_width=True
+        ):
+
+            new_signal = (
+                get_best_opportunity()
+            )
+
+            if new_signal:
+
+                st.session_state[
+                    "pending_signal"
+                ] = new_signal
+
+            st.rerun()
+
+else:
+
+    st.info(
+        "Generate a signal to create a pending trade."
+    )
+
+    # =========================
+# ACTIVE SIGNALS
+# =========================
+
+st.markdown("---")
+
+st.header("🔴 Active Signals")
+
+# Ensure df is defined before use (it may be loaded later in the file)
+if "df" not in locals():
+    df = pd.DataFrame()
+
+if not df.empty:
+
+    open_trades = df[
+        df["status"] == "OPEN"
+    ]
+
+    if len(open_trades) > 0:
+
+        st.dataframe(
+            open_trades,
+            width="stretch"
+        )
+
+    else:
+
+        st.info(
+            "No active signals."
+        )
 
 
 # =========================
@@ -728,39 +833,6 @@ except Exception:
     st.warning(
         "Market data unavailable"
     )
-
-
-# =========================
-
-# FEAR & GREED
-
-# =========================
-
-st.markdown("---")
-
-st.header(f"😨 {T['fear_greed']}")
-
-try:
-    value, sentiment = (
-        get_fear_greed()
-    )
-
-    col1, col2 = st.columns(2)
-
-    col1.metric(
-        "Score",
-        value
-    )
-
-    col2.metric(
-    "Sentiment",
-    sentiment
-)
-
-except Exception:
-    st.warning(
-    "Fear & Greed unavailable"
-)
 
 # =========================
 
@@ -855,34 +927,27 @@ if not df.empty:
         )
 
 # =========================
-
-# SUMMARY
-
+# PLATFORM SUMMARY
 # =========================
 
 st.markdown("---")
 
-st.header(
-f"🚀 {T['summary']}"
-)
+st.header("🚀 AlphaLens Mission")
 
 summary = """
-AlphaLens AI combines Bitget Market Data,
-Qwen AI Analysis,
-Portfolio Intelligence,
-Paper Trading Analytics,
-Daily Market Briefs,
-Trending Coin Monitoring,
-Fear & Greed Analysis,
-and Multi-Language Support
-into a unified crypto intelligence platform.
+AlphaLens AI bridges the gap between raw market data and intelligent decision-making.
+
+By combining Bitget Market Data, Qwen AI, Portfolio Intelligence,
+Economic Calendar Monitoring, AI Market Briefs, Paper Trading Analytics,
+and Multi-Language Accessibility, AlphaLens delivers institutional-grade
+crypto intelligence through a single streamlined experience.
 """
 
-st.info(
-translate_text(
-summary,
-language
-)
+st.success(
+    translate_text(
+        summary,
+        language
+    )
 )
 
 # =========================

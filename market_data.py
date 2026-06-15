@@ -7,9 +7,11 @@ import streamlit as st
 
 @st.cache_data(ttl=300)
 def get_trending_coins():
+
     url = "https://api.coingecko.com/api/v3/search/trending"
 
     try:
+
         response = requests.get(
             url,
             timeout=10
@@ -20,14 +22,37 @@ def get_trending_coins():
 
         data = response.json()
 
-        return [
-            coin["item"]["symbol"].upper()
-            for coin in data["coins"][:5]
-        ]
+        trending = []
+
+        for coin in data["coins"][:5]:
+
+            item = coin["item"]
+
+            symbol = item["symbol"].upper()
+
+            change = item.get(
+                "data",
+                {}
+            ).get(
+                "price_change_percentage_24h",
+                {}
+            ).get(
+                "usd",
+                0
+            )
+
+            trending.append(
+                {
+                    "symbol": symbol,
+                    "change": change
+                }
+            )
+
+        return trending
 
     except Exception:
-        return []
 
+        return []
 # =========================
 # GLOBAL MARKET DATA
 # =========================
