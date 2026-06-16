@@ -67,44 +67,43 @@ T = TRANSLATIONS[language]
 # HEADER
 # =========================
 
-header_col1, header_col2 = st.columns([1, 6])
+try:
 
-with header_col1:
-
-    try:
-
-        st.image(
-            "logo.png",
-            width=90
-        )
-
-    except Exception:
-
-        st.markdown("# 🚀")
-
-with header_col2:
-
-    st.title("AlphaLens AI")
-
-    st.caption(
-        "Built for Bitget AI Base Camp Hackathon S1 2026"
+    st.image(
+        "logo.png",
+        width=120
     )
 
-    st.subheader(
-        "Multilingual AI-Powered Crypto Intelligence Platform"
+except Exception:
+
+    st.markdown(
+        "<h1 style='text-align:center;'>🚀</h1>",
+        unsafe_allow_html=True
     )
 
 st.markdown(
     """
-🤖 AI Signals • 📊 Portfolio Intelligence • 📰 Market Briefs • 📅 Economic Calendar • 🌍 Market Intelligence • 🌐 Multi-Language Support
-"""
+    <div style="text-align:center;">
+
+    <h1>AlphaLens AI</h1>
+
+    <p style="color:gray;">
+    Built for Bitget AI Base Camp Hackathon S1 2026
+    </p>
+
+    <h3>
+    Multilingual AI-Powered Crypto Intelligence Platform
+    </h3>
+
+    <p>
+    🤖 AI Signals • 📊 Portfolio Intelligence • 📰 Market Briefs •
+    📅 Economic Calendar • 🌍 Market Intelligence • 🌐 Multi-Language Support
+    </p>
+
+    </div>
+    """,
+    unsafe_allow_html=True
 )
-
-st.markdown("---")
-
-# =========================
-# HEADER
-# =========================
 
 st.markdown("---")
 
@@ -151,6 +150,14 @@ if not df.empty:
     avg_pnl = 0
     health_score = 0
 
+    avg_confidence = round(
+        pd.to_numeric(
+            df["confidence"],
+            errors="coerce"
+        ).mean(),
+        2
+    )
+
     if total_closed > 0:
 
         pnl = pd.to_numeric(
@@ -175,26 +182,25 @@ if not df.empty:
         health_score = min(
             round(
                 (
-                    win_rate * 0.7
+                    win_rate * 0.5
                 )
                 +
                 (
-                    max(avg_pnl, 0)
-                    * 0.3
+                    avg_confidence * 0.4
+                )
+                +
+                (
+                    min(max(avg_pnl, 0), 20)
+                    * 0.1
                 ),
                 2
             ),
             100
         )
 
-    avg_confidence = round(
-        pd.to_numeric(
-            df["confidence"],
-            errors="coerce"
-        ).mean(),
-        2
+    st.caption(
+        "Health Score combines Win Rate, Confidence, and Profitability metrics."
     )
-
     col1, col2, col3 = st.columns(3)
     col4, col5, col6 = st.columns(3)
 
@@ -367,42 +373,132 @@ with fear_col:
         )
 
 # =========================
+
 # ECONOMIC CALENDAR
+
 # =========================
+
+from datetime import datetime
 
 st.markdown("---")
 
-st.header(translate_text("📅 Economic Calendar", language))
+st.header(
+translate_text(
+"📅 Economic Calendar",
+language
+)
+)
+
+st.caption(
+"AlphaLens monitors macroeconomic events that may influence crypto market volatility."
+)
 
 events = get_economic_events()
 
 high_impact = [
-    e for e in events
-    if "🔴" in e["impact"]
+e for e in events
+if "🔴" in e["impact"]
 ]
 
-if high_impact:
+# =========================
 
-    st.warning(
-        f"⚠️ {len(high_impact)} high-impact economic events scheduled."
-    )
+# FIND NEXT FUTURE EVENT
+
+# =========================
+
+today = datetime.utcnow()
+
+future_events = []
 
 for event in events:
+    event_date = datetime.strptime(
+        event["date"],
+        "%Y-%m-%d"
+    )
 
+    if event_date >= today:
+        future_events.append((event_date, event))
+
+
+future_events.sort(key=lambda x: x[0])
+
+if future_events:
+    next_event_date, next_event = future_events[0]
+
+    days_remaining = max((next_event_date - today).days, 0)
+else:
+    next_event = events[-1]
+    days_remaining = 0
+
+# =========================
+
+# CALENDAR OVERVIEW
+
+# =========================
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.metric("Total Events", len(events))
+
+with col2:
+    st.metric("High Impact", len(high_impact))
+
+
+with col3:
+    st.metric(
+        "Next Event",
+        next_event["event"]
+    )
+
+
+st.warning(
+f"⚠️ {len(high_impact)} high-impact economic events scheduled."
+)
+
+st.success(
+f"📌 Next Major Event: {next_event['event']} ({next_event['date']})"
+)
+
+st.info(
+f"⏳ {days_remaining} day(s) remaining until the next major economic event."
+)
+
+st.info(
+"AlphaLens AI evaluates macroeconomic risk alongside technical and market signals."
+)
+
+# =========================
+
+# EVENT DETAILS
+
+# =========================
+
+for event in events:
     with st.expander(
         f"{event['impact']} {event['event']}"
     ):
 
+        col1, col2 = st.columns(2)
+
+        with col1:
+            st.write(f"📅 Date: {event['date']}")
+
+        with col2:
+            st.write(f"⏰ Time: {event['time']}")
+
+        st.markdown("---")
+
+        st.write(f"**Description:** {event['description']}")
+
         st.write(
-            f"📅 Date: {event['date']}"
+            f"**Crypto Impact:** "
+            f"{event.get('crypto_impact', 'Impact analysis unavailable.')}"
         )
 
         st.write(
-            f"⏰ Time: {event['time']}"
-        )
-
-        st.write(
-            event["description"]
+            f"**AlphaLens View:** "
+            f"{event.get('alphalens_view', 'AI commentary unavailable.')}"
         )
 
 # =========================
