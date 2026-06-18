@@ -20,25 +20,25 @@ https://alphalensai.streamlit.app
 
 ## 📊 Platform Overview
 
-![Platform Overview](screenshots/Platform%20Overview.png)
+![Platform Overview](screenshots/platform_overview.png)
 
 ---
 
 ## 🔥 Market Pulse + 📅 Economic Calendar
 
-![Market Pulse + Economic Calendar](screenshots/Market%20Pulse%20%2B%20Economic%20Calendar.png)
+![Market Pulse + Economic Calendar](screenshots/market_pulse_economic_calendar.png)
 
 ---
 
 ## 📰 Market Brief + 💼 Portfolio Intelligence
 
-![Market Brief + Portfolio Intelligence](screenshots/Market%20Brief%20%2B%20Portfolio%20Intelligence.png)
+![Market Brief + Portfolio Intelligence](screenshots/market_brief_portfolio_intelligence.png)
 
 ---
 
 ## 📈 Trade Analytics
 
-![Trade Analytics](screenshots/Trade%20Analytics.png)
+![Trade Analytics](screenshots/trade_analytics.png)
 
 ---
 
