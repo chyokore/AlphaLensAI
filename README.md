@@ -32,7 +32,7 @@ https://alphalensai.streamlit.app
 
 ## 📰 Market Brief + 💼 Portfolio Intelligence
 
-![Market Brief + Portfolio Intelligence](screenshots/market_brief_portfolio_intelligence.png)
+<img width="720" height="906" alt="market_brief_portfolio_intelligence" src="https://github.com/user-attachments/assets/85397d04-3684-48da-b50e-c648c151cdb7" />
 
 ---
 
