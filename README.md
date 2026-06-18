@@ -10,6 +10,68 @@ Rather than forcing users to switch between multiple dashboards, news sources, s
 
 ---
 
+# 🌐 Live Demo
+
+https://alphalensai.streamlit.app
+
+---
+
+# 📸 Dashboard Preview
+
+## 📊 Platform Overview
+
+![Platform Overview](screenshots/Platform%20Overview.png)
+
+---
+
+## 🔥 Market Pulse + 📅 Economic Calendar
+
+![Market Pulse + Economic Calendar](screenshots/Market%20Pulse%20%2B%20Economic%20Calendar.png)
+
+---
+
+## 📰 Market Brief + 💼 Portfolio Intelligence
+
+![Market Brief + Portfolio Intelligence](screenshots/Market%20Brief%20%2B%20Portfolio%20Intelligence.png)
+
+---
+
+## 📈 Trade Analytics
+
+![Trade Analytics](screenshots/Trade%20Analytics.png)
+
+---
+
+# ⚙️ Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/chyokore/alphalensai.git
+cd alphalensai
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Create a `.env` file:
+
+```env
+QWEN_API_KEY=YOUR_API_KEY
+```
+
+Run AlphaLens AI:
+
+```bash
+streamlit run dashboard.py
+```
+
+---
+
+
 # 🎯 The Problem
 
 Crypto traders often rely on fragmented workflows involving:
@@ -49,7 +111,7 @@ The result is a unified system that helps users move from observation to action.
 
 ---
 
-# # 🔥 What Makes AlphaLens Different
+# 🔥 What Makes AlphaLens Different
 
 AlphaLens combines:
 
@@ -227,7 +289,11 @@ AlphaLensAI/
 ├── translator.py
 ├── translations.py
 
-├── signals.csv
+├── screenshots/
+│   ├── Platform Overview.png
+│   ├── Market Pulse + Economic Calendar.png
+│   ├── Market Brief + Portfolio Intelligence.png
+│   └── Trade Analytics.png
 
 ├── reports/
 │   ├── portfolio_report.txt
@@ -237,6 +303,7 @@ AlphaLensAI/
 │   ├── trade_review.txt
 │   └── paper_trading_report.txt
 
+├── signals.csv
 ├── requirements.txt
 └── README.md
 ```
@@ -261,7 +328,7 @@ AlphaLensAI/
 
 **Bitget AI Base Camp Hackathon S1 2026**
 
-Builder: **Chinyere Okore**
+Builder: **Chinyere Okore/ Chiondefi**
 
 AlphaLens AI demonstrates how AI can transform fragmented crypto workflows into a unified intelligence platform for traders and investors.
 

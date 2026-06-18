@@ -1,0 +1,19 @@
+1. Market Sentiment: Cautiously bullish. On-chain accumulation and steady institutional ETF inflows provide structural support, while short-term price action shows healthy consolidation near key liquidity zones.
+
+2. Short-Term Outlook: Range-bound with a bullish tilt. Expect compression between $64,500 and $67,200. A sustained break above $66,800 on rising volume could trigger an accelerated push toward $69K+.
+
+3. Risk Level: Medium-High. Standard Bitcoin volatility remains elevated, with sensitivity to macro liquidity shifts, derivative funding rates, and sudden volume spikes.
+
+4. Trading Signal: BUY
+
+5. Confidence Score: 74/100
+
+6. Suggested Entry Price: $65,200 – $65,800
+
+7. Suggested Stop Loss: $63,300
+
+8. Suggested Take Profit: $69,500
+
+9. AI Market Narrative: Bitcoin is navigating a post-rally consolidation phase, characterized by tightening Bollinger Bands and healthy long-term holder distribution patterns. Liquidity mapping reveals concentrated buy-side interest around the $65K–$65.5K zone, which historically acts as a springboard for directional moves. With ETF net inflows stabilizing and spot derivatives showing controlled leverage, the market structure favors an upside resolution. The asset is building a higher-low formation, suggesting that institutional capital is absorbing short-term sell pressure in preparation for the next expansion cycle.
+
+10. Key Risk Factors: Unexpected macroeconomic policy shifts (e.g., rate decisions, liquidity tightening), abrupt regulatory announcements, rapid ETF outflows, cascading derivative liquidations, and exchange liquidity fragmentation during low-volume windows.
