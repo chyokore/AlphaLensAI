@@ -1,11 +1,11 @@
 
-Trades Analyzed: 8
-Winning Trades: 5
-Losing Trades: 3
-Win Rate: 62.50%
-Average PnL: 0.33%
-Total Portfolio PnL: 2.64%
-Average Confidence: 70.38
+Trades Analyzed: 16
+Winning Trades: 9
+Losing Trades: 7
+Win Rate: 56.25%
+Average PnL: -0.59%
+Total Portfolio PnL: -9.48%
+Average Confidence: 70.88
 Risk Rating: MEDIUM
-Health Score: 52.43/100
+Health Score: 49.39/100
 Portfolio Status: NEUTRAL

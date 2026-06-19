@@ -1,24 +1,6 @@
-**1. Portfolio Health Score:** 64/100 (Moderate)
-**2. Portfolio Risk Score:** 79/100 (Elevated)
-**3. Diversification Score:** 47/100 (Low-Moderate)
-**4. Market Sentiment:** Extreme Fear / Risk-Off. Capitulation mechanics active. Institutional spot accumulation is likely underway, but retail liquidity and altcoin bid support remain structurally weak.
-**5. Strongest Asset:** BTC. Market structure anchor with highest liquidity, institutional custody, and relative downside resilience in risk-off regimes.
-**6. Highest Risk Asset:** SPCXX & KINS. Low/mid-cap trending tokens with high beta, thin order books, and acute vulnerability to sentiment-driven liquidity drains.
-**7. Buy / Hold / Reduce:**
-   • BTC: Buy (DCA on -8% to -12% dips)
-   • SIREN: Hold (Track on-chain volume & catalyst alignment)
-   • SPCXX: Reduce
-   • KINS: Reduce
-   • BP: Hold (Conditional on active utility/fundamental delivery)
-**8. Recommended Allocation:** 50% BTC, 25% Cash/Stables, 15% High-Conviction Mid-Caps, 10% Tactical/Speculative. Trim alt exposure if it exceeds 25% total portfolio weight.
-**9. Opportunity Watchlist:** Bitcoin L2s & RWA protocols, assets maintaining RS > 60 on declining volume, and ecosystem tokens with sustained GitHub commits despite macro headwinds.
-**10. Market Narrative:** “Liquidity Contraction & Capitulation.” Macro uncertainty and risk-off flows are compressing alt valuations while Bitcoin consolidates. Smart capital is absorbing BTC spot while speculative leverage unwinds.
-**11. Risk Management Advice:**
-   • Cap single-asset exposure at 8% max.
-   • Enforce hard stop-losses at -12% to -15%.
-   • Maintain ≥20% dry powder (stables).
-   • Zero leverage until Fear & Greed exits Extreme Fear (<30).
-   • Use limit orders only; avoid market execution during low-volume volatility spikes.
-**12. AI Confidence Score:** 76% (Moderate-High. Macro/sentiment regime alignment is strong, but micro-cap data opacity limits precision.)
-**13. Executive Summary:** The portfolio operates in a high-friction, risk-off environment. Bitcoin-led structure provides baseline stability, but trending mid/low-cap assets face severe liquidity headwinds. Health is moderate but risk-adjusted returns currently favor capital preservation. Strategic BTC accumulation paired with disciplined altcoin reduction will optimize positioning for the next macro inflection.
-**14. Final Trading Stance:** Defensive
+
+No active portfolio positions found.
+
+Generate and place trades from the
+dashboard before running Portfolio
+Analysis.

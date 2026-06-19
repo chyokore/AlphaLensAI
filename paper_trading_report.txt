@@ -1,26 +1,34 @@
 AlphaLens V7 Report
 ========================================
 
-Trades Analyzed: 8
-Winning Trades: 5
-Losing Trades: 3
-Win Rate: 62.50%
-Average PnL: 0.33%
-Total Portfolio PnL: 2.64%
-Average Confidence: 70.38
+Trades Analyzed: 16
+Winning Trades: 9
+Losing Trades: 7
+Win Rate: 56.25%
+Average PnL: -0.59%
+Total Portfolio PnL: -9.48%
+Average Confidence: 70.88
 Risk Rating: MEDIUM
-Health Score: 52.43/100
+Health Score: 49.39/100
 Portfolio Status: NEUTRAL
 
-Best Trade: SOL (2.15%)
-Worst Trade: OP (-2.56%)
+Best Trade: OP (5.83%)
+Worst Trade: AVAX (-7.51%)
 
 Recommendations
-XRP | Signal=BUY | Confidence=64.0 | PnL=-0.03% | Action=BUY
-APT | Signal=REDUCE | Confidence=64.0 | PnL=-1.49% | Action=BUY
-BTC | Signal=BUY | Confidence=74.0 | PnL=0.50% | Action=HOLD
-OP | Signal=REDUCE | Confidence=71.0 | PnL=-2.56% | Action=BUY
-ETH | Signal=BUY | Confidence=73.0 | PnL=0.68% | Action=HOLD
-ETH | Signal=BUY | Confidence=72.0 | PnL=1.37% | Action=HOLD
-SOL | Signal=BUY | Confidence=73.0 | PnL=2.15% | Action=HOLD
-AVAX | Signal=BUY | Confidence=72.0 | PnL=2.01% | Action=HOLD
+XRP | Signal=BUY | Confidence=64.0 | PnL=-2.91% | Action=BUY
+APT | Signal=REDUCE | Confidence=64.0 | PnL=-5.25% | Action=BUY
+BTC | Signal=BUY | Confidence=74.0 | PnL=0.34% | Action=HOLD
+ETH | Signal=BUY | Confidence=67.0 | PnL=1.00% | Action=HOLD
+OP | Signal=REDUCE | Confidence=71.0 | PnL=5.83% | Action=HOLD
+BTC | Signal=BUY | Confidence=72.0 | PnL=-0.17% | Action=BUY
+ETH | Signal=BUY | Confidence=73.0 | PnL=1.64% | Action=HOLD
+ETH | Signal=BUY | Confidence=72.0 | PnL=2.37% | Action=HOLD
+SOL | Signal=BUY | Confidence=73.0 | PnL=5.39% | Action=HOLD
+AVAX | Signal=BUY | Confidence=72.0 | PnL=-7.51% | Action=BUY
+ARB | Signal=BUY | Confidence=73.0 | PnL=2.93% | Action=HOLD
+SUI | Signal=BUY | Confidence=68.0 | PnL=-5.91% | Action=BUY
+BTC | Signal=BUY | Confidence=68.0 | PnL=1.83% | Action=HOLD
+SUI | Signal=BUY | Confidence=78.0 | PnL=-4.89% | Action=BUY
+XRP | Signal=BUY | Confidence=71.0 | PnL=0.15% | Action=HOLD
+BTC | Signal=BUY | Confidence=74.0 | PnL=-4.31% | Action=BUY

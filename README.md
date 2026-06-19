@@ -133,6 +133,51 @@ Rather than offering isolated tools, AlphaLens provides a complete AI-powered cr
 
 ---
 
+# 📊 Results & Evidence
+
+AlphaLens AI generates and maintains AI-driven reports and analytics that demonstrate the platform's end-to-end capabilities.
+
+Generated outputs include:
+
+* Portfolio Intelligence Reports
+* Daily Market Briefs
+* Portfolio Metrics
+* Trade Reviews
+* Leaderboards
+* Paper Trading Reports
+
+These outputs are available inside the `reports/` directory and provide evidence of AI-powered market analysis and portfolio intelligence workflows.
+
+---
+
+# 📈 Backtesting & Paper Trading Evidence
+
+AlphaLens AI maintains historical signal data through `signals.csv`, providing the foundation for:
+
+* Paper Trading Analytics
+* Trade Performance Tracking
+* Win Rate Analysis
+* Portfolio Health Scoring
+* Historical Signal Monitoring
+* Trade Reviews
+* Leaderboards
+
+Current results demonstrate the complete signal lifecycle from generation to trade monitoring and performance evaluation.
+
+Evidence is stored in:
+
+* `signals.csv`
+
+Generated reports include:
+
+* `reports/portfolio_report.txt`
+* `reports/portfolio_metrics.txt`
+* `reports/trade_review.txt`
+* `reports/paper_trading_report.txt`
+* `reports/leaderboard.txt`
+* `reports/market_brief_*.txt`
+
+
 # 🖥️ Dashboard Features
 
 ### Platform Overview

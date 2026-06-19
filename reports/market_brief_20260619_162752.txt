@@ -1,0 +1,29 @@
+**1. Market Mood**
+Cautiously Bearish
+
+**2. Confidence Score**
+Confidence Score: 68/100
+
+**3. Top Opportunity**
+BTC spot accumulation on 5–8% drawdowns; tactical long on HYPE for DeFi/perpetuals narrative resilience and relative volume strength.
+
+**4. Highest Risk Asset**
+SIREN (micro-cap speculative, highly vulnerable to liquidity evaporation and stop-run cascades).
+
+**5. Market Narrative**
+• **Bitcoin Trend:** Consolidating near macro support. BTC dominance at 56.06% confirms capital rotation from risk-on assets into flight-to-safety positioning.
+• **Altcoin Trend:** Broad distribution phase. Trending names (ANT, MET, CARDS) exhibit high volatility but lack sustained bid depth, indicating weak retail conviction.
+• **Liquidity Conditions:** Order books are thin. $73.3B 24h volume reflects risk-off behavior; stablecoin reserves are rising while spot inflows remain muted.
+• **Market Structure:** Capitulation regime. Lower highs across mid/large caps, yet BTC maintains higher-timeframe structure. Extreme Fear historically precedes localized accumulation zones, but structural confirmation is pending.
+
+**6. Key Risk**
+Forced liquidation cascades in thin markets, potentially triggering spot breakdowns and exchange funding rate dislocations.
+
+**7. Actionable Insight**
+With zero open positions, your portfolio holds pure dry powder. Deploy defensively: scale 10–15% of target allocation into BTC via staggered limit orders at key support. Avoid market execution. Monitor HYPE and ANT for volume confirmation before any alt rotation. Maintain >65% cash/stables until BTC dominance breaks below 54% or Fear & Greed exits Extreme Fear.
+
+**8. Executive Summary**
+Capital preservation takes precedence. Extreme Fear paired with elevated BTC dominance signals a risk-off macro regime. While capitulation often seeds medium-term bottoms, near-term price action remains structurally fragile. Your empty portfolio provides asymmetric optionality; deploy only on confirmed liquidity absorption and avoid chasing trending low-caps until volume profiles normalize.
+
+**9. Final Market Stance**
+Defensive
