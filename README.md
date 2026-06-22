@@ -10,9 +10,26 @@ Rather than forcing users to switch between multiple dashboards, news sources, s
 
 ---
 
+# # 🎥 Demo Video
+
+https://youtube.com/shorts/aa1KoEOPZd4?si=Ri9P8XC0LLF1uM6W
+
+---
+
 # 🌐 Live Demo
 
 https://alphalensai.streamlit.app
+
+---
+
+# 📈 Current Results
+
+* 16 paper trades analyzed
+* 56% win rate
+* AI-generated market briefs
+* Portfolio health scoring
+* End-to-end trade lifecycle management
+* Multi-language support
 
 ---
 
@@ -130,6 +147,16 @@ AlphaLens combines:
 within a single platform.
 
 Rather than offering isolated tools, AlphaLens provides a complete AI-powered crypto intelligence workflow that helps users understand markets, evaluate risk, and make informed decisions.
+
+---
+
+# 🌍 Why Multi-Language Support?
+
+Crypto markets are global, but access to trading intelligence is often limited by language barriers.
+
+AlphaLens AI enables traders from different regions to interact with AI-generated market intelligence in their preferred language, making sophisticated analysis more accessible worldwide.
+
+By combining AI reasoning with multilingual accessibility, AlphaLens lowers the barrier to intelligent decision-making for a global audience.
 
 ---
 
@@ -311,6 +338,39 @@ AlphaLens currently demonstrates:
 ### Deployment
 
 * GitHub
+* Streamlit Community Cloud
+
+---
+
+# 🏗️ Architecture
+
+### Frontend
+
+* Streamlit
+
+### AI Layer
+
+* Qwen AI
+
+### Market Data
+
+* Bitget Market Data
+* CoinGecko API
+
+### Sentiment Data
+
+* Alternative.me Fear & Greed Index
+
+### Analytics
+
+* Pandas
+
+### Persistence
+
+* CSV-based trade history
+
+### Deployment
+
 * Streamlit Community Cloud
 
 ---
