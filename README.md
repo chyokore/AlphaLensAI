@@ -10,7 +10,7 @@ Rather than forcing users to switch between multiple dashboards, news sources, s
 
 ---
 
-# # 🎥 Demo Video
+ # 🎥 Demo Video
 
 https://youtube.com/shorts/aa1KoEOPZd4?si=Ri9P8XC0LLF1uM6W
 
@@ -236,14 +236,15 @@ Track overall market sentiment:
 
 ### Economic Calendar
 
-Monitor upcoming high-impact macroeconomic events:
+Monitor upcoming macroeconomic events that may influence crypto markets.
 
-* CPI
-* PPI
-* FOMC
-* NFP
-* Impact Levels
-* Event Schedules
+Features include:
+
+- Upcoming macro events
+- High / Medium impact classification
+- Event schedules
+- AI-generated market impact commentary
+- Automatic filtering of past events
 
 ### Portfolio Intelligence
 
@@ -298,7 +299,7 @@ AlphaLens currently demonstrates:
 * AI Signal Generation
 * Portfolio Intelligence
 * Daily Market Brief Generation
-* Economic Calendar Integration
+* Economic Calendar Monitoring
 * Automated Trade Monitoring
 * Pending Trade Workflow
 * AI Command Center
@@ -384,21 +385,18 @@ AlphaLensAI/
 ├── dashboard.py
 ├── signal_engine.py
 ├── economic_calendar.py
-
+├── economic_calendar.json
 ├── portfolio.py
 ├── market_brief.py
-├── trade_tracker.py
-
 ├── market_data.py
 ├── bitget_data.py
+├── sentiment.py
+├── trade_tracker.py
 ├── translator.py
 ├── translations.py
-
-├── screenshots/
-│   ├── Platform Overview.png
-│   ├── Market Pulse + Economic Calendar.png
-│   ├── Market Brief + Portfolio Intelligence.png
-│   └── Trade Analytics.png
+├── requirements.txt
+├── README.md
+├── .env
 
 ├── reports/
 │   ├── portfolio_report.txt
@@ -408,9 +406,13 @@ AlphaLensAI/
 │   ├── trade_review.txt
 │   └── paper_trading_report.txt
 
-├── signals.csv
-├── requirements.txt
-└── README.md
+├── screenshots/
+│   ├── platform_overview.png
+│   ├── market_pulse_economic_calendar.png
+│   ├── market_brief_portfolio_intelligence.png
+│   └── trade_analytics.png
+
+└── signals.csv
 ```
 
 ---

@@ -395,6 +395,7 @@ st.caption(
 
 events = get_economic_events()
 
+
 high_impact = [
 e for e in events
 if "🔴" in e["impact"]
@@ -411,13 +412,23 @@ today = datetime.utcnow()
 future_events = []
 
 for event in events:
-    event_date = datetime.strptime(
-        event["date"],
-        "%Y-%m-%d"
-    )
 
-    if event_date >= today:
-        future_events.append((event_date, event))
+    date_str = event.get("date", "")
+
+    if not date_str:
+        continue
+
+    try:
+        event_date = datetime.strptime(
+            date_str,
+            "%Y-%m-%d"
+        )
+
+        if event_date >= today:
+            future_events.append((event_date, event))
+
+    except ValueError:
+        continue
 
 
 future_events.sort(key=lambda x: x[0])

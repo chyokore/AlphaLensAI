@@ -1,0 +1,65 @@
+[
+  {
+    "event": "FOMC Meeting Minutes",
+    "impact": "🔴 High",
+    "date": "2026-07-08",
+    "time": "18:00 UTC",
+    "description": "Federal Reserve releases minutes from its latest policy meeting.",
+    "crypto_impact": "Can trigger sharp volatility across BTC and ETH depending on the Fed's tone.",
+    "alphalens_view": "Watch BTC, ETH, DXY and Gold immediately after the release."
+  },
+  {
+    "event": "US Initial Jobless Claims",
+    "impact": "🟠 Medium",
+    "date": "2026-07-09",
+    "time": "12:30 UTC",
+    "description": "Weekly report showing new unemployment benefit claims.",
+    "crypto_impact": "Unexpected changes may briefly affect risk sentiment.",
+    "alphalens_view": "Lower claims support USD strength while higher claims may support risk assets."
+  },
+  {
+    "event": "US Consumer Price Index (CPI)",
+    "impact": "🔴 High",
+    "date": "2026-07-15",
+    "time": "12:30 UTC",
+    "description": "Monthly inflation report measuring consumer prices.",
+    "crypto_impact": "Higher inflation may pressure crypto if markets expect tighter monetary policy.",
+    "alphalens_view": "One of the most important macro events for BTC and ETH."
+  },
+  {
+    "event": "US Producer Price Index (PPI)",
+    "impact": "🟠 Medium",
+    "date": "2026-07-16",
+    "time": "12:30 UTC",
+    "description": "Measures inflation at the producer level.",
+    "crypto_impact": "Can influence inflation expectations and market sentiment.",
+    "alphalens_view": "Moderate impact unless there is a significant surprise."
+  },
+  {
+    "event": "ECB Interest Rate Decision",
+    "impact": "🔴 High",
+    "date": "2026-07-24",
+    "time": "12:15 UTC",
+    "description": "European Central Bank monetary policy announcement.",
+    "crypto_impact": "May influence EUR, USD and global risk appetite.",
+    "alphalens_view": "Monitor BTC and ETH for increased volatility."
+  },
+  {
+    "event": "US Advance GDP",
+    "impact": "🔴 High",
+    "date": "2026-07-30",
+    "time": "12:30 UTC",
+    "description": "Quarterly economic growth report.",
+    "crypto_impact": "Strong GDP can strengthen the USD and affect crypto sentiment.",
+    "alphalens_view": "Watch for broad market reactions across crypto and equities."
+  },
+  {
+    "event": "US Non-Farm Payrolls (NFP)",
+    "impact": "🔴 High",
+    "date": "2026-08-07",
+    "time": "12:30 UTC",
+    "description": "Monthly employment report.",
+    "crypto_impact": "Often one of the biggest volatility drivers for financial markets.",
+    "alphalens_view": "Expect elevated volatility in BTC, ETH and the US Dollar."
+  }
+]
